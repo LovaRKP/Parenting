@@ -7,21 +7,492 @@
 //
 
 #import "ViewController.h"
+#import "UserDetailViewViewController.h"
+#import "ALScrollViewPaging.h"
+#import <GoogleOpenSource/GoogleOpenSource.h>
+#import <GooglePlus/GooglePlus.h>
+#import <QuartzCore/QuartzCore.h>
+#import "AFNetworkReachabilityManager.h"
+#import "PrivacePolicy view.h"
+#import "HOMEViewController.h"
+#import "AFHTTPRequestOperationManager.h"
 
-@interface ViewController ()
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+@interface ViewController () <GPPSignInDelegate>
+
+{
+    //FBLogin
+    NSString *userEmailForFB;
+    NSString *fbIdFb;
+    
+    
+    //googleLogIn
+    
+    NSDictionary *googleUserInfermation;
+    
+    //Tokens
+    NSString *loginDeviceId;
+    NSString *loginTocken;
+    
+    NSString *registerDeviceId;
+    NSString *registerTocken;
+    NSString *reguserId;
+    
+    NSString *userImageURL;
+    NSString *userLogInBy;
+    
+    
+    CDActivityIndicatorView * activityIndicatorView ;
+    
+}
+
 
 @end
 
 @implementation ViewController
+@synthesize signInButton ;
+
+
+static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9s32.apps.googleusercontent.com";
 
 - (void)viewDidLoad {
+    
+        self.screenName = @"LogIn Screen";
+       
+    activityIndicatorView = [[CDActivityIndicatorView alloc] initWithImage:[UIImage imageNamed:@"indicater.png"]];
+    
+    activityIndicatorView.center = self.view.center;
+    
+    [self.view addSubview:activityIndicatorView];
+    
+    [activityIndicatorView startAnimating];
+    
+   
+    
+    //self.navigationItem.hidesBackButton = YES;
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+ 
+   
+    
+    [FBLoginView class];
+   
+    
+    [activityIndicatorView startAnimating];
+    
+    self.loginButton.delegate = self;
+    self.loginButton.readPermissions = @[@"public_profile", @"email"];
+    
+    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        
+        if (status == AFNetworkReachabilityStatusNotReachable) {
+            
+            UIAlertController *alertController = [UIAlertController  alertControllerWithTitle:@"Connection Failed"  message:@"Check your Internet Connection"  preferredStyle:UIAlertControllerStyleAlert];
+            [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }]];
+            [self presentViewController:alertController animated:YES completion:nil];
+            
+            
+        }
+        
+        
+    }];
+    
+    
+    // Google
+    
+    
+    GPPSignIn *signIn = [GPPSignIn sharedInstance];
+    // You previously set kClientID in the "Initialize the Google+ client" step
+    signIn.clientID = kClientID;
+    signIn.scopes = [NSArray arrayWithObjects:
+                     kGTLAuthScopePlusLogin,@"https://www.googleapis.com/auth/userinfo.email",nil];
+    signIn.delegate = self;
+    // BOOL alreadyLogin = [signIn trySilentAuthentication];
+    
+    if (signIn.hasAuthInKeychain == YES)
+    {
+        NSLog(@"user is Already login");
+        
+    
+     [activityIndicatorView startAnimating];
+        
+    }
+    else{
+        
+        
+            [activityIndicatorView stopAnimating];
+        
+    }
+    
+    //
+    [signIn trySilentAuthentication];
+    
+}
+
+-(void) viewWillAppear:(BOOL)animated{
+    
+    [[UINavigationBar appearance]setBarTintColor:[UIColor colorWithRed:116.0f/255.0f
+                                                                 green:79.0f/255.0f
+                                                                  blue:141.0f/255.0f
+                                                                 alpha:1.0f]];
+[[UIToolbar appearance] setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    
+    [super viewWillAppear:animated];
+    _loginButton.delegate = self;
+    
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+    _loginButton.delegate = nil;
+    
+     [activityIndicatorView stopAnimating];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark - FBLoginView Delegate method implementation
+
+-(void)loginViewShowingLoggedInUser:(FBLoginView *)loginView{
+    //self.lblLoginStatus.text = @"You are logged in.";
+    
+    //[self toggleHiddenState:NO];
+    
+      [activityIndicatorView startAnimating];
+    
+}
+
+
+-(void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user{
+    // NSLog(@"%@", user);
+    //    self.profilePicture.profileID = user.id;
+    //    self.lblUsername.text = user.name;
+    
+    userEmailForFB = [user objectForKey:@"email"];
+    
+    fbIdFb = [user objectForKey:@"id"];
+      [activityIndicatorView startAnimating];
+    
+    _userdata = (NSMutableDictionary *)user;
+    _userurl = user.objectID;
+    
+    userLogInBy = @"facebook";
+    
+    if (user == nil) {
+        
+        return;
+        
+    }else{
+        
+        [self loginApi];
+        
+        
+        userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [user objectID]];
+        NSLog(@"userimge===%@",userImageURL);
+        
+        
+    }
+}
+
+
+-(void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView{
+    //self.lblLoginStatus.text = @"You are logged out";
+    
+    
+    
+}
+
+- (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error
+{
+    NSString *alertMessage, *alertTitle;
+    
+    if ([FBErrorUtility shouldNotifyUserForError:error])
+    {
+        alertTitle = @"Facebook error";
+        alertMessage = [FBErrorUtility userMessageForError:error];
+        
+    }
+    else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryAuthenticationReopenSession)
+    {
+        alertTitle = @"Session Error";
+        alertMessage = @"Your current session is no longer valid. Please log in again.";
+        
+    }
+    else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryUserCancelled)
+    {
+        NSLog(@"user cancelled login");
+        
+    }
+    else
+    {
+        alertTitle  = @"Something went wrong";
+        alertMessage = @"Please try again later.";
+        NSLog(@"Unexpected error:%@", error);
+    }
+    
+    if (alertMessage)
+    {
+        [[[UIAlertView alloc] initWithTitle:alertTitle
+                                    message:alertMessage
+                                   delegate:nil
+                          cancelButtonTitle:@"OK"
+                          otherButtonTitles:nil] show];
+    }
+}
+
+// google
+
+
+- (void)finishedWithAuth:(GTMOAuth2Authentication *)auth
+                   error:(NSError *)error {
+    
+    
+    if (error) {
+        
+        NSLog(@"ERROR ::: %@" ,[NSString stringWithFormat:@"Status: Authentication error: %@", error]);
+          [activityIndicatorView stopAnimating];
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                        message:error.localizedDescription
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        
+        [alert show];
+        return;
+    }
+    // getting the access token from auth
+    NSString  *accessTocken = [auth valueForKey:@"accessToken"]; // access tocken pass in .pch file
+    // NSLog(@"%@",accessTocken);
+    NSString *str=[NSString stringWithFormat:@"https://www.googleapis.com/oauth2/v1/userinfo?access_token=%@",accessTocken];
+    NSString *escapedUrl = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",escapedUrl]];
+    NSString *jsonData = [[NSString alloc] initWithContentsOfURL:url usedEncoding:nil error:nil];
+    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:[jsonData dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&error];
+    
+    
+    userEmailForFB = [jsonDictionary objectForKey:@"email"];
+    NSLog(@"userEmail gmail ====%@",userEmailForFB);
+    
+    fbIdFb = [jsonDictionary objectForKey:@"id"];
+    
+    NSLog(@"id for gmail ====%@",fbIdFb);
+    
+    googleUserInfermation = jsonDictionary;
+    
+    userLogInBy = @"google";
+    
+    NSLog(@"googleUserInfermation = %@",googleUserInfermation);
+    
+    
+    
+    
+    // NSMutableDictionary *proDic = [[NSMutableDictionary alloc] init];
+    // NSString *userId=[jsonDictionary objectForKey:@"id"];
+    // proDic=[jsonData JSONValue];
+    // NSLog(@" user deata %@",jsonData);
+    //NSLog(@"Received Access Token:%@",auth);
+    // NSLog(@"user google user id  %@",signIn.userEmail); //logged in user's email id
+    
+    // [self reportAuthStatus];
+    
+    //    UserDetailViewViewController *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
+    //                                        instantiateViewControllerWithIdentifier:@"UserDetailsViewController"];
+    //
+    //    wc.googleData = jsonDictionary;
+    //    NSLog(@"GoogleData: %@",jsonDictionary);
+    //
+    //    [self.navigationController pushViewController:wc animated:YES];
+    
+    // [[GPPSignIn sharedInstance] signOut];
+    
+    
+    [self loginApi];
+    
+    
+}
+
+- (IBAction)privacePolicy:(id)sender {
+    
+    NSLog(@"working.......");
+    
+    
+    PrivacePolicy_view *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
+                              instantiateViewControllerWithIdentifier:@"Privace"];
+    
+    [self.navigationController pushViewController:wc animated:YES];
+    
+}
+
+-(void)loginApi
+{
+    
+    // LogIn Api
+      NSString *diviceTokenOr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
+     NSLog(@"LOGINUSERID  =====%@",diviceTokenOr);
+    
+    
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    NSDictionary *params = @{@"email": userEmailForFB,
+                             
+                             @"device_token":@"123456789"
+                             ,
+                             @"device_type": @"ios"
+                             ,
+                             @"login_by": userLogInBy
+                             ,
+                             @"social_unique_id":fbIdFb
+                             
+                             };
+    manager.responseSerializer = [AFJSONResponseSerializer serializer]; // if response JSON format
+    [manager POST:@"http://zenparent.in/api/login" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"my Value LOGINAt View :%@", responseObject);
+        
+        NSString *errorCode = [responseObject objectForKey:@"error_code"];
+        
+        int value = [errorCode intValue];
+        
+        if (value == 401) {
+            
+            if (IS_IPAD)
+            {
+                UserDetailViewViewController *wc = [[UIStoryboard storyboardWithName:@"StoryboardiPad" bundle:nil]
+                                                    instantiateViewControllerWithIdentifier:@"UserDetailsViewController"];
+                wc.myDIc = _userdata;
+                NSLog(@"facebookData:%@",_userdata);
+                
+                wc.userurl1 = userImageURL;
+                wc.googleData = googleUserInfermation;
+                wc.logINBy = userLogInBy;
+                
+                
+                [self.navigationController pushViewController:wc animated:YES];
+                
+            }else {
+                
+                UserDetailViewViewController *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
+                                                    instantiateViewControllerWithIdentifier:@"UserDetailsViewController"];
+                wc.myDIc = _userdata;
+                NSLog(@"facebookData:%@",_userdata);
+                
+                wc.userurl1 = userImageURL;
+                wc.googleData = googleUserInfermation;
+                wc.logINBy = userLogInBy;
+                
+                
+                [self.navigationController pushViewController:wc animated:YES];
+                // [self presentViewController:wc animated:YES completion:nil];
+                
+            }
+            
+            
+        }else{
+            
+            
+            
+            NSDictionary *dict = [[NSDictionary alloc]init];
+            
+            dict = [responseObject objectForKey:@"users"];
+            NSLog(@"my value dic =%@",dict);
+            
+            
+            registerDeviceId = [dict objectForKey:@"device_token"];
+            
+            NSLog(@"registerDeviceId====%@",registerDeviceId);
+            
+            registerTocken = [dict objectForKey:@"token"];
+            
+            NSLog(@"registerTocken====%@",registerTocken);
+            
+            reguserId = [dict objectForKey:@"id"];
+            
+            NSLog(@"reguserId====%@",reguserId);
+            
+            
+            [[NSUserDefaults standardUserDefaults] setObject:registerTocken forKey:@"REG_TOKEN"];
+            
+            
+            [[NSUserDefaults standardUserDefaults] setObject:reguserId forKey:@"REG_userId"];
+            
+            [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"logged_in"];
+            
+            [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"PARlogged_in"];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"PartiallyRegistered"];
+            
+            //Language settings
+            
+            
+             [[NSUserDefaults standardUserDefaults] setObject:@"English" forKey:@"LanguageDefalt"];
+            
+            
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            
+            if(![[NSUserDefaults standardUserDefaults] boolForKey:@"logged_in"]) {
+                
+                
+                if (IS_IPAD)
+                {
+                    UserDetailViewViewController *wc = [[UIStoryboard storyboardWithName:@"StoryboardiPad" bundle:nil]
+                                                        instantiateViewControllerWithIdentifier:@"UserDetailsViewController"];
+                    wc.myDIc = _userdata;
+                    NSLog(@"facebookData:%@",_userdata);
+                    
+                    wc.userurl1 = userImageURL;
+                    
+                    wc.logINBy = userLogInBy;
+                    
+                    [self.navigationController pushViewController:wc animated:YES];
+                    // [self presentViewController:wc animated:YES completion:nil];
+                    
+                }else {
+                    
+                    UserDetailViewViewController *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
+                                                        instantiateViewControllerWithIdentifier:@"UserDetailsViewController"];
+                    wc.myDIc = _userdata;
+                    NSLog(@"facebookData:%@",_userdata);
+                    
+                    wc.userurl1 = userImageURL;
+                    
+                    wc.logINBy = userLogInBy;
+                    
+                    [self.navigationController pushViewController:wc animated:YES];
+                    // [self presentViewController:wc animated:YES completion:nil];
+                    
+                }
+                
+            } else {
+                
+                
+                HOMEViewController *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
+                                          instantiateViewControllerWithIdentifier:@"HOMEIOS"];
+                
+                [self.navigationController pushViewController:wc animated:YES];
+               
+                
+            }
+            
+        } //end of else
+        
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        NSLog(@"%@", error);
+        
+    }];
+    
+}
+
 
 @end

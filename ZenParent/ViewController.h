@@ -7,8 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <FacebookSDK/FacebookSDK.h>
+#import <GooglePlus/GooglePlus.h>
+#import "Constants.h"
 
-@interface ViewController : UIViewController
+
+@class GIDSignInButton;
+
+@interface ViewController : GAITrackedViewController <FBLoginViewDelegate ,GPPSignInDelegate,UIScrollViewDelegate >
+@property (weak, nonatomic) IBOutlet FBLoginView *loginButton;
+@property (strong, nonatomic)  NSMutableDictionary *userdata;
+@property (strong, nonatomic) NSString *userurl;
+
+
+// Google
+
+@property (retain, nonatomic) IBOutlet GPPSignInButton *signInButton;
 
 
 @end
