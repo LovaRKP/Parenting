@@ -14,7 +14,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@interface SetingsView ()
+@interface SetingsView ()<UIPickerViewDelegate ,UIPickerViewDataSource>
 {
   
     NSMutableArray *Settings;
@@ -23,13 +23,15 @@
    // NSString *userTokenValue;
     NSMutableArray *selectedIDS;
     CDActivityIndicatorView * activityIndicatorView ;
-    
+    NSString *userDate;
 }
+
 
 @end
 
-@implementation SetingsView
 
+
+@implementation SetingsView
 
 - (void)viewDidLoad {
     
@@ -51,7 +53,8 @@
     self.navigationItem.title = @"Your Details";
       [[UINavigationBar appearance] setBarTintColor:[UIColor whiteColor]];
    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    
+
+
     [_mytable reloadData];
     
     selectedIDS = [[NSMutableArray alloc]init];
@@ -240,15 +243,21 @@
         
         
     }else if (indexPath.row == 4){
-        SettingsSelectionView *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
-                                     
-                                     instantiateViewControllerWithIdentifier:@"Settings"];
+//        SettingsSelectionView *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
+//                                     
+//                                     instantiateViewControllerWithIdentifier:@"Settings"];
+//        
+//        childDic = [[Settings objectAtIndex:indexPath.row]objectForKey:@"childs"];
+//        wc.tableData = childDic;
+//        wc.table = _mytable;
+//        
+//        [self.navigationController pushViewController:wc animated:YES];
         
-        childDic = [[Settings objectAtIndex:indexPath.row]objectForKey:@"childs"];
-        wc.tableData = childDic;
-        wc.table = _mytable;
+        // Working On this to add date picker
         
-        [self.navigationController pushViewController:wc animated:YES];
+        
+
+        
         
         
     }else if (indexPath.row == 5){
@@ -278,6 +287,8 @@
     
 
 }
+
+
 
 - (IBAction)dobButtonPressed:(id)sender {
     

@@ -102,11 +102,11 @@
     
     [InMobi initialize:@"957c6e9e07384acba8f99d4fa35545fd"];   //957c6e9e07384acba8f99d4fa35545fd
     
-   [InMobi setLogLevel:IMLogLevelDebug];
-
+    [InMobi setLogLevel:IMLogLevelDebug];
+    
     
     // Do your stuff.
-
+    
     [[UINavigationBar appearance]setBarTintColor:[UIColor colorWithRed:116.0f/255.0f
                                                                  green:79.0f/255.0f
                                                                   blue:141.0f/255.0f
@@ -230,7 +230,7 @@
     //url_with_pid = zenaparent.in/cartegory/post_name?pid=123
     //zenparent.in/api/single_article?params..?deep_link=1
     //respose = single_post_object ...post_id,post_type,post_title,pso
-
+    
     NSLog( @"url for Api:===== %@",url);
     
     NSString *yourString = [url absoluteString];
@@ -239,14 +239,14 @@
     [yourString stringByReplacingOccurrencesOfString:@"zenparent.ios://http//" withString:@"http://"];
     
     NSLog(@"URL without scheme: %@", strNoURLScheme);
-
+    
     NSURL *myurlwithdeep = [NSURL URLWithString:strNoURLScheme];
     deepArray = [[NSMutableDictionary alloc]init];
     myurl = myurlwithdeep;
     [self deepLinkApi];
-  
     
-
+    
+    
     // Note these methods take in the raw URL, not the sanitizedURL
     if ([GSDDeepLink isDeepLinkFromGoogleAppCrawler:url]) {
         
@@ -255,9 +255,9 @@
     } else if ([GSDDeepLink isDeepLinkFromGoogleSearch:url]) {
         // Add analytics code below to track click from Google Search
         
-           NSLog(@"Working.....");
+        NSLog(@"Working.....");
     }
-
+    
     
     return YES;
     
@@ -274,7 +274,7 @@
     NSLog(@"DeviceToken: content---%@", deviceToken);
     [[NSUserDefaults standardUserDefaults]setObject:deviceToken forKey:@"deviceToken"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
+
     
 }
 
@@ -288,11 +288,11 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     if ( application.applicationState == UIApplicationStateActive ){
-
+        
         //Ipad code
         
         if (IS_IPAD) {
- 
+            
             // app was already in the foreground
             NSLog(@"app was already in the foreground");
             
@@ -311,7 +311,7 @@
             
             
             // Remove Hardcoding link while testing........
-
+            
             if (![[tempdic allKeys] containsObject:@"link"]){
                 
                 if ([articalType isEqualToString:@"reviews"])
@@ -385,7 +385,7 @@
             
             
         }else {
-        
+            
             // app was already in the foreground
             NSLog(@"app was already in the foreground");
             
@@ -406,7 +406,7 @@
             // Remove Hardcoding link while testing........
             
             //   if (IS_IPAD) {
-
+            
             if (![[tempdic allKeys] containsObject:@"link"]){
                 
                 if ([articalType isEqualToString:@"reviews"])
@@ -477,8 +477,8 @@
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlsite]];
                 
             }
-
-        
+            
+            
         }
         
         
@@ -487,7 +487,7 @@
     else {
         
         if (IS_IPAD){
-        
+            
             // app was just brought from background to foreground
             NSLog(@"app was just brought from background to foreground");
             
@@ -588,13 +588,13 @@
                 
                 
             }
-
-        
-        
-        
+            
+            
+            
+            
         }else{
-        
-        
+            
+            
             // app was just brought from background to foreground
             NSLog(@"app was just brought from background to foreground");
             
@@ -695,7 +695,7 @@
                 
                 
             }
-
+            
         }
         
     }
@@ -785,7 +785,7 @@
 }
 
 -(void)deepLinkApi{
-
+    
     NSDictionary *parameters = @{
                                  @"url" :myurl,
                                  
@@ -799,7 +799,7 @@
              //geting data from varun
              
              deepArray = [responseObject objectForKey: @"result"];
- 
+             
              NSString *beepPathString = [myurl path];
              NSLog(@"beepPathString   %@", beepPathString);
              
@@ -810,78 +810,7 @@
              
              if (IS_IPAD) {
                  
-             
-             
-             if ([myurl.pathComponents[1] isEqualToString:@"reviews"]){
-             
-                     
-                     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-                     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-                     DetailReviewNew *controller = (DetailReviewNew*)[mainStoryboard instantiateViewControllerWithIdentifier: @"DetailReviewNew"];
-                      controller.articalDeepArray = deepArray;
-                     [navigationController pushViewController:controller animated:YES];
-              
                  
-             }else if ([myurl.pathComponents[1] isEqualToString:@"recipes"]){
-                
-                     
-                     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-                     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-                     DetailRecipeNew *controller = (DetailRecipeNew*)[mainStoryboard instantiateViewControllerWithIdentifier: @"DetailRecipeNew"];
-                     
-                      controller.articalDeepArray = deepArray;
-                     
-                     [navigationController pushViewController:controller animated:YES];
-           
-             }else if ([myurl.pathComponents[1] isEqualToString:@"easy-tips"]){
-       
-                     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-                     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-                     DetailEasyTipsNew *controller = (DetailEasyTipsNew*)[mainStoryboard instantiateViewControllerWithIdentifier: @"DetailEasyTipsNew"];
-                     controller.articalDeepArray = deepArray;
-                     [navigationController pushViewController:controller animated:YES];
-            
-                 
-             }else if ([myurl.pathComponents[1]  isEqualToString:@"events"]){
-
-      
-                     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-                     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-                     DetailEventNew *controller = (DetailEventNew*)[mainStoryboard instantiateViewControllerWithIdentifier: @"DetailEventnw"];
-                       controller.articalDeepArray = deepArray;
-                     [navigationController pushViewController:controller animated:YES];
-               
-                 
-             }else if ([myurl.pathComponents[1] isEqualToString:@"dinner-conversations"]){
-                 
-              
-                     
-                     
-                     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-                     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-                     DetailDinnerViewNew *controller = (DetailDinnerViewNew*)[mainStoryboard instantiateViewControllerWithIdentifier: @"DetailDinnerViewNew"];
-                     
-                      controller.articalDeepArray = deepArray;
-                     [navigationController pushViewController:controller animated:YES];
-              
-                 
-             }else if ([myurl.pathComponents[1] isEqualToString:@"parenting"]){
-                 
-                 NSLog(@"working............");
-     
-                     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-                     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-                     DetailParentingViewNew *controller = (DetailParentingViewNew*)[mainStoryboard instantiateViewControllerWithIdentifier: @"DetailParentingViewNew"];
-                     
-                      controller.articalDeepArray = deepArray;
-                 
-                     [navigationController pushViewController:controller animated:YES];
-           
-             }
-                 
-             }else {
-             
-             
                  
                  if ([myurl.pathComponents[1] isEqualToString:@"reviews"]){
                      
@@ -949,9 +878,80 @@
                      [navigationController pushViewController:controller animated:YES];
                      
                  }
- 
+                 
+             }else {
+                 
+                 
+                 
+                 if ([myurl.pathComponents[1] isEqualToString:@"reviews"]){
+                     
+                     
+                     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+                     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+                     DetailReviewNew *controller = (DetailReviewNew*)[mainStoryboard instantiateViewControllerWithIdentifier: @"DetailReviewNew"];
+                     controller.articalDeepArray = deepArray;
+                     [navigationController pushViewController:controller animated:YES];
+                     
+                     
+                 }else if ([myurl.pathComponents[1] isEqualToString:@"recipes"]){
+                     
+                     
+                     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+                     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+                     DetailRecipeNew *controller = (DetailRecipeNew*)[mainStoryboard instantiateViewControllerWithIdentifier: @"DetailRecipeNew"];
+                     
+                     controller.articalDeepArray = deepArray;
+                     
+                     [navigationController pushViewController:controller animated:YES];
+                     
+                 }else if ([myurl.pathComponents[1] isEqualToString:@"easy-tips"]){
+                     
+                     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+                     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+                     DetailEasyTipsNew *controller = (DetailEasyTipsNew*)[mainStoryboard instantiateViewControllerWithIdentifier: @"DetailEasyTipsNew"];
+                     controller.articalDeepArray = deepArray;
+                     [navigationController pushViewController:controller animated:YES];
+                     
+                     
+                 }else if ([myurl.pathComponents[1]  isEqualToString:@"events"]){
+                     
+                     
+                     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+                     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+                     DetailEventNew *controller = (DetailEventNew*)[mainStoryboard instantiateViewControllerWithIdentifier: @"DetailEventnw"];
+                     controller.articalDeepArray = deepArray;
+                     [navigationController pushViewController:controller animated:YES];
+                     
+                     
+                 }else if ([myurl.pathComponents[1] isEqualToString:@"dinner-conversations"]){
+                     
+                     
+                     
+                     
+                     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+                     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+                     DetailDinnerViewNew *controller = (DetailDinnerViewNew*)[mainStoryboard instantiateViewControllerWithIdentifier: @"DetailDinnerViewNew"];
+                     
+                     controller.articalDeepArray = deepArray;
+                     [navigationController pushViewController:controller animated:YES];
+                     
+                     
+                 }else if ([myurl.pathComponents[1] isEqualToString:@"parenting"]){
+                     
+                     NSLog(@"working............");
+                     
+                     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
+                     UIStoryboard *mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+                     DetailParentingViewNew *controller = (DetailParentingViewNew*)[mainStoryboard instantiateViewControllerWithIdentifier: @"DetailParentingViewNew"];
+                     
+                     controller.articalDeepArray = deepArray;
+                     
+                     [navigationController pushViewController:controller animated:YES];
+                     
+                 }
+                 
              }
-
+             
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              
@@ -963,7 +963,7 @@
              [self.window.rootViewController presentViewController:alertController animated:YES completion:nil];
              
          }];
-
-
+    
+    
 }
 @end

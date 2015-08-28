@@ -436,7 +436,7 @@ static NSString *CellIdentifier5 = @"parenting";
         //Resipe cell details
         
         mycell2.recipieTitle.text= [[myArray objectAtIndex:indexPath.row]objectForKey:@"title"];
-        
+
         NSString *imageurl = [[myArray objectAtIndex:indexPath.row]objectForKey:@"image"];
         
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:imageurl]
@@ -488,7 +488,7 @@ static NSString *CellIdentifier5 = @"parenting";
         mycell2.snackButton.titleLabel.textAlignment = NSTextAlignmentCenter;
         
         [mycell2.snackButton setTitle:[mydicvalue objectForKey:@"type"]forState:UIControlStateNormal];
-        [mycell2.snackButton.titleLabel setFont:[UIFont systemFontOfSize:9]];
+        [mycell2.snackButton.titleLabel setFont:[UIFont systemFontOfSize:12]];
         
         // BookMarkedButton
         articalid = [mydicvalue objectForKey:@"article_id"];

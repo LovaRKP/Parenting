@@ -159,7 +159,7 @@
     cell.preptime.text = [NSString stringWithFormat:@"%@ min",[mydicvalue objectForKey:@"preparing_time"]];
     //cell.coockingTime.text = [mydicvalue objectForKey:@"preparing_time"];
     [cell.snackLabel setTitle:[mydicvalue objectForKey:@"type"]forState:UIControlStateNormal];
-    [cell.snackLabel.titleLabel setFont:[UIFont systemFontOfSize:9]];
+    [cell.snackLabel.titleLabel setFont:[UIFont systemFontOfSize:12]];
     
     
     
@@ -181,7 +181,7 @@
     cell.snackLabel.titleLabel.textAlignment = NSTextAlignmentCenter;
     
     [cell.snackLabel setTitle:[mydicvalue objectForKey:@"type"]forState:UIControlStateNormal];
-    [cell.snackLabel.titleLabel setFont:[UIFont systemFontOfSize:9]];
+    [cell.snackLabel.titleLabel setFont:[UIFont systemFontOfSize:12]];
     
     
     
@@ -338,7 +338,7 @@
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    CGSize mElementSize  = CGSizeMake(300, 381);
+    CGSize mElementSize  = CGSizeMake(300, 398);
     
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
@@ -352,12 +352,12 @@
         if(result.height == 667)
         {
             // iPhone 5
-            CGSize mElementSize  = CGSizeMake(350, 381);
+            CGSize mElementSize  = CGSizeMake(350, 398);
             return mElementSize;
             
         } else if(result.height == 736)
         {
-            CGSize mElementSize  = CGSizeMake(380, 381);
+            CGSize mElementSize  = CGSizeMake(380, 398);
             return mElementSize;
         }
     }
