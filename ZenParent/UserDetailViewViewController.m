@@ -103,7 +103,7 @@
     
     
     // LogIn Api
-     NSString *diviceTokenOr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
+    NSString *diviceTokenOr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
     
     NSLog(@"LOGINUSERID USERDEtail  =====%@",diviceTokenOr);
     
@@ -112,7 +112,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *params = @{@"email": _userEmail.text,
                              
-                             @"device_token": @"123456789"
+                             @"device_token": diviceTokenOr
                              ,
                              @"device_type": @"ios"
                              ,
@@ -222,7 +222,7 @@
 
 -(void)registerTheUser{
     
-      NSString *diviceTokenOr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
+    NSString *diviceTokenOr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
     
     NSLog(@"REGISTERUSERID USERDEtail  =====%@",diviceTokenOr);
     
@@ -234,7 +234,7 @@
                                  @"last_name":_lastName.text,
                                  @"email": _userEmail.text,
                                  @"phone":  _phoneNoTf.text,
-                                 @"device_token": @"123456789",
+                                 @"device_token": diviceTokenOr,
                                  @"device_type": @"ios",
                                  @"social_unique_id": _fbID ,
                                  @"login_by":_logINBy,

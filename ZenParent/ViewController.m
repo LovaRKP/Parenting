@@ -43,6 +43,10 @@
     NSString *userLogInBy;
     
     
+    
+    NSString  *accessTocken;
+    
+    
     CDActivityIndicatorView * activityIndicatorView ;
     
 }
@@ -58,8 +62,8 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
 
 - (void)viewDidLoad {
     
-        self.screenName = @"LogIn Screen";
-       
+    self.screenName = @"LogIn Screen";
+    
     activityIndicatorView = [[CDActivityIndicatorView alloc] initWithImage:[UIImage imageNamed:@"indicater.png"]];
     
     activityIndicatorView.center = self.view.center;
@@ -68,18 +72,18 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     
     [activityIndicatorView startAnimating];
     
-   
+    
     
     //self.navigationItem.hidesBackButton = YES;
     
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
- 
-   
+    
+    
     
     [FBLoginView class];
-   
+    
     
     [activityIndicatorView startAnimating];
     
@@ -118,14 +122,14 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     {
         NSLog(@"user is Already login");
         
-    
-     [activityIndicatorView startAnimating];
+        
+        [activityIndicatorView startAnimating];
         
     }
     else{
         
         
-            [activityIndicatorView stopAnimating];
+        [activityIndicatorView stopAnimating];
         
     }
     
@@ -140,7 +144,7 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
                                                                  green:79.0f/255.0f
                                                                   blue:141.0f/255.0f
                                                                  alpha:1.0f]];
-[[UIToolbar appearance] setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
+    [[UIToolbar appearance] setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     
     [super viewWillAppear:animated];
     _loginButton.delegate = self;
@@ -151,7 +155,7 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     
     _loginButton.delegate = nil;
     
-     [activityIndicatorView stopAnimating];
+    [activityIndicatorView stopAnimating];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -166,9 +170,11 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     
     //[self toggleHiddenState:NO];
     
-      [activityIndicatorView startAnimating];
+    [activityIndicatorView startAnimating];
     
 }
+
+
 
 
 -(void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user{
@@ -179,22 +185,27 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     userEmailForFB = [user objectForKey:@"email"];
     
     fbIdFb = [user objectForKey:@"id"];
-      [activityIndicatorView startAnimating];
+    [activityIndicatorView startAnimating];
     
     _userdata = (NSMutableDictionary *)user;
     _userurl = user.objectID;
-    
     userLogInBy = @"facebook";
+
+ accessTocken = [NSString stringWithFormat:@"%@",[[FBSession activeSession] accessTokenData]];
+ 
+    
+    
+
+    NSLog(@"%@",[[FBSession activeSession] accessTokenData]);
     
     if (user == nil) {
-        
+
         return;
         
     }else{
         
         [self loginApi];
-        
-        
+
         userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [user objectID]];
         NSLog(@"userimge===%@",userImageURL);
         
@@ -251,6 +262,9 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
 // google
 
 
+
+
+
 - (void)finishedWithAuth:(GTMOAuth2Authentication *)auth
                    error:(NSError *)error {
     
@@ -258,7 +272,7 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     if (error) {
         
         NSLog(@"ERROR ::: %@" ,[NSString stringWithFormat:@"Status: Authentication error: %@", error]);
-          [activityIndicatorView stopAnimating];
+        [activityIndicatorView stopAnimating];
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
                                                         message:error.localizedDescription
@@ -270,8 +284,18 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
         return;
     }
     // getting the access token from auth
-    NSString  *accessTocken = [auth valueForKey:@"accessToken"]; // access tocken pass in .pch file
-    // NSLog(@"%@",accessTocken);
+    
+    
+    //id_token = [NSString stringWithFormat:@"%@",[[[[GPPSignIn sharedInstance] authentication] parameters] objectForKey:@"id_token"]];
+    
+    
+    
+    NSLog(@"id_token ========%@",accessTocken);
+    
+    accessTocken = [auth valueForKey:@"accessToken"]; // access tocken pass in .pch file
+
+    NSLog(@"%@",accessTocken);
+
     NSString *str=[NSString stringWithFormat:@"https://www.googleapis.com/oauth2/v1/userinfo?access_token=%@",accessTocken];
     NSString *escapedUrl = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",escapedUrl]];
@@ -320,6 +344,8 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     
 }
 
+
+
 - (IBAction)privacePolicy:(id)sender {
     
     NSLog(@"working.......");
@@ -336,21 +362,23 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
 {
     
     // LogIn Api
-      NSString *diviceTokenOr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
-     NSLog(@"LOGINUSERID  =====%@",diviceTokenOr);
+    NSString *diviceTokenOr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
+    NSLog(@"LOGINUSERID  =====%@",diviceTokenOr);
     
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *params = @{@"email": userEmailForFB,
                              
-                             @"device_token":@"123456789"
+                             @"device_token": diviceTokenOr
                              ,
                              @"device_type": @"ios"
                              ,
                              @"login_by": userLogInBy
                              ,
-                             @"social_unique_id":fbIdFb
+                             @"social_unique_id":fbIdFb,
+                             
+                             @"access_token": accessTocken
                              
                              };
     manager.responseSerializer = [AFJSONResponseSerializer serializer]; // if response JSON format
@@ -362,7 +390,37 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
         
         int value = [errorCode intValue];
         
-        if (value == 401) {
+        if (value == 403) {
+            
+            [activityIndicatorView stopAnimating];
+            
+            
+            if ([UIAlertController class])
+            {
+                
+                UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:@"Logon Failed Due to Server Configuration with No Authentication" preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                [alertController addAction:ok];
+                
+                [self presentViewController:alertController animated:YES completion:nil];
+                
+                
+            }
+            else
+            {
+                
+                UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Error" message:@"Logon Failed Due to Server Configuration with No Authentication" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                
+                [alert show];
+                
+            }
+            
+            return;
+            
+        }
+        
+        else if (value == 401) {
             
             if (IS_IPAD)
             {
@@ -433,7 +491,7 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
             //Language settings
             
             
-             [[NSUserDefaults standardUserDefaults] setObject:@"English" forKey:@"LanguageDefalt"];
+            [[NSUserDefaults standardUserDefaults] setObject:@"English" forKey:@"LanguageDefalt"];
             
             
             [[NSUserDefaults standardUserDefaults] synchronize];
@@ -479,7 +537,7 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
                                           instantiateViewControllerWithIdentifier:@"HOMEIOS"];
                 
                 [self.navigationController pushViewController:wc animated:YES];
-               
+                
                 
             }
             

@@ -22,6 +22,8 @@
 @property(strong, nonatomic) NSString *userToken;
 
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
+@property (weak, nonatomic) IBOutlet UIToolbar *PickerToolBar;
 
+@property (weak, nonatomic) IBOutlet UIDatePicker *DatePickerView;
 
 @end

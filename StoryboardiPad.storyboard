@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="q86-7O-iXA">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -1603,7 +1602,7 @@
                                                     <state key="normal" backgroundImage="bookmarkNew@2x.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <state key="highlighted" backgroundImage="32E3936F-5D13-4A9C-B8D3-DAB4C053A53B"/>
+                                                    <state key="highlighted" backgroundImage="61B0C934-974B-4F78-BE2C-3C001F73D50B"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Jackfruit - Music Fest For And By Children" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="482" translatesAutoresizingMaskIntoConstraints="NO" id="4Li-Uc-P7p">
                                                     <rect key="frame" x="102" y="33" width="482" height="54"/>
@@ -2338,7 +2337,7 @@
                                                     <state key="normal" backgroundImage="bookmarkNew@2x.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <state key="highlighted" backgroundImage="CB264BCD-1492-43C6-9211-40874E11ADAC"/>
+                                                    <state key="highlighted" backgroundImage="EEE0B92B-EFA8-4210-BC62-C6A63F409845"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Jackfruit - Music Fest For And By Children" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="3gx-3P-Zwt">
                                                     <rect key="frame" x="102" y="33" width="482" height="54"/>
@@ -3933,7 +3932,7 @@
                                                     <state key="normal" backgroundImage="bookmarkNew@2x.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <state key="highlighted" backgroundImage="53AEB35C-72B4-496F-938F-EEFF44E2F3F3"/>
+                                                    <state key="highlighted" backgroundImage="055126B0-F1CE-4AD6-896C-ED90A3F24451"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Jackfruit - Music Fest For And By Children" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="3hy-sY-WTW">
                                                     <rect key="frame" x="102" y="33" width="482" height="54"/>
@@ -4933,7 +4932,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="32E3936F-5D13-4A9C-B8D3-DAB4C053A53B" width="301" height="301">
+        <image name="055126B0-F1CE-4AD6-896C-ED90A3F24451" width="301" height="301">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMU
 GR4fJSYsLzU4VSRudWxs1QkKCwwNDg8QERJWTlNTaXplViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBz
@@ -4949,7 +4948,7 @@ AZIBmgGdAaQBrAG5Ab4BwAHCAccBzwHSAdcB3wHiAfQB9wH8AAAAAAAAAgEAAAAAAAAAPwAAAAAAAAAA
 AAAAAAAAAf4
 </mutableData>
         </image>
-        <image name="53AEB35C-72B4-496F-938F-EEFF44E2F3F3" width="301" height="301">
+        <image name="61B0C934-974B-4F78-BE2C-3C001F73D50B" width="301" height="301">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMU
 GR4fJSYsLzU4VSRudWxs1QkKCwwNDg8QERJWTlNTaXplViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBz
@@ -4965,7 +4964,7 @@ AZIBmgGdAaQBrAG5Ab4BwAHCAccBzwHSAdcB3wHiAfQB9wH8AAAAAAAAAgEAAAAAAAAAPwAAAAAAAAAA
 AAAAAAAAAf4
 </mutableData>
         </image>
-        <image name="CB264BCD-1492-43C6-9211-40874E11ADAC" width="301" height="301">
+        <image name="EEE0B92B-EFA8-4210-BC62-C6A63F409845" width="301" height="301">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMU
 GR4fJSYsLzU4VSRudWxs1QkKCwwNDg8QERJWTlNTaXplViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBz

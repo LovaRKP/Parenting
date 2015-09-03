@@ -17,6 +17,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "ViewController.h"
 
 //#define DebugLog
 
@@ -491,7 +492,57 @@
       parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              NSLog(@"JSON: %@", responseObject);
+             NSString *errorStringForSectionToken = [responseObject objectForKey:@"error_code"];
              
+             int value = [errorStringForSectionToken intValue];
+             
+             if (value == 406) {
+                 
+                 [FBSession.activeSession closeAndClearTokenInformation];
+                 
+                 NSHTTPCookie *cookie;
+                 NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+                 for (cookie in [storage cookies])
+                 {
+                     NSString* domainName = [cookie domain];
+                     NSRange domainRange = [domainName rangeOfString:@"facebook"];
+                     if(domainRange.length > 0)
+                     {
+                         [storage deleteCookie:cookie];
+                     }
+                 }
+                 
+                 
+                 FBSession* session = [FBSession activeSession];
+                 [session closeAndClearTokenInformation];
+                 [session close];
+                 [FBSession setActiveSession:nil];
+                 
+                 NSHTTPCookieStorage* cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+                 NSArray* facebookCookies = [cookies cookiesForURL:[NSURL         URLWithString:@"https://facebook.com/"]];
+                 
+                 for (NSHTTPCookie* cookie in facebookCookies) {
+                     [cookies deleteCookie:cookie];
+                 }
+                 
+                 [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"logged_in"];
+                 
+                 // [self signOut];
+                 
+                 [[GPPSignIn sharedInstance] signOut];
+                 
+                 [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"PARlogged_in"];
+                 [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"PartiallyRegistered"];
+                 
+                 [[NSUserDefaults standardUserDefaults] synchronize];
+
+                 
+                 ViewController *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
+                                       instantiateViewControllerWithIdentifier:@"ViewContr"];
+                 
+                 [self.navigationController pushViewController:wc animated:YES];
+                 
+             }else {
              
              
              myArray = [responseObject objectForKey: @"result"];
@@ -775,6 +826,7 @@
                                 
                                 
                             });
+             }
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              

@@ -99,9 +99,7 @@ static NSString *CellIdentifier5 = @"parenting";
     [self.view addSubview:activityIndicatorView];
     
     [activityIndicatorView startAnimating];
-    
-    
-    
+
     
     myArray = [[NSMutableArray alloc]init];
     
@@ -177,6 +175,8 @@ static NSString *CellIdentifier5 = @"parenting";
     return myArray.count;
     
 }
+
+
 
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -285,8 +285,7 @@ static NSString *CellIdentifier5 = @"parenting";
             mycell1.titleForTv.text = @"Reviews";
             
         }
-        
-        
+   
         NSString *emptyAge = [mydicvalue objectForKey:@"age_group"];
         
         if ([emptyAge isEqualToString:@""]) {
@@ -436,7 +435,7 @@ static NSString *CellIdentifier5 = @"parenting";
         //Resipe cell details
         
         mycell2.recipieTitle.text= [[myArray objectAtIndex:indexPath.row]objectForKey:@"title"];
-
+        
         NSString *imageurl = [[myArray objectAtIndex:indexPath.row]objectForKey:@"image"];
         
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:imageurl]
@@ -1292,7 +1291,7 @@ static NSString *CellIdentifier5 = @"parenting";
     
     CGSize nElementSize4 = CGSizeMake(300, 236);
     
-    CGSize nElementSize5 = CGSizeMake(300, 377);
+    CGSize nElementSize5 = CGSizeMake(300, 387);
     
     
     
@@ -1828,31 +1827,92 @@ static NSString *CellIdentifier5 = @"parenting";
       parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              // NSLog(@"JSON: %@", responseObject);
-             NSMutableArray *newArray = [[NSMutableArray alloc]init];
              
-             newArray = [responseObject objectForKey:@"result"];
+             NSString *errorStringForSectionToken = [responseObject objectForKey:@"error_code"];
              
-             NSLog(@"newArray====%@",newArray);
+             int value = [errorStringForSectionToken intValue];
              
-             NSLog(@"oldArray======%@",myArray);
-             
-             self.myArray = [[myArray arrayByAddingObjectsFromArray:newArray] mutableCopy];
-             
-             
-             dispatch_async(dispatch_get_main_queue(), ^
-                            {
-                                [self.cpllection reloadData];
-                                [activityIndicatorView stopAnimating];
-                                if (myArray.count == 0) {
-                                    [TostView showToastInParentView:self.view withText:@"Loading..." withDuaration:2.0];
+             if (value == 406) {
+                 
+                 
+                 
+                 [FBSession.activeSession closeAndClearTokenInformation];
+                 
+                 NSHTTPCookie *cookie;
+                 NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+                 for (cookie in [storage cookies])
+                 {
+                     NSString* domainName = [cookie domain];
+                     NSRange domainRange = [domainName rangeOfString:@"facebook"];
+                     if(domainRange.length > 0)
+                     {
+                         [storage deleteCookie:cookie];
+                     }
+                 }
+                 
+                 
+                 FBSession* session = [FBSession activeSession];
+                 [session closeAndClearTokenInformation];
+                 [session close];
+                 [FBSession setActiveSession:nil];
+                 
+                 NSHTTPCookieStorage* cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+                 NSArray* facebookCookies = [cookies cookiesForURL:[NSURL         URLWithString:@"https://facebook.com/"]];
+                 
+                 for (NSHTTPCookie* cookie in facebookCookies) {
+                     [cookies deleteCookie:cookie];
+                 }
+                 
+                 [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"logged_in"];
+                 
+                 // [self signOut];
+                 
+                 [[GPPSignIn sharedInstance] signOut];
+                 
+                 [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"PARlogged_in"];
+                 [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"PartiallyRegistered"];
+                 
+                 [[NSUserDefaults standardUserDefaults] synchronize];
+                 
+                 ViewController *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
+                                       instantiateViewControllerWithIdentifier:@"ViewContr"];
+                 
+                 
+                 
+                 [self.navigationController pushViewController:wc animated:YES];
+                 
+             }else {
+                 NSMutableArray *newArray = [[NSMutableArray alloc]init];
+                 
+                 newArray = [responseObject objectForKey:@"result"];
+                 
+                 NSLog(@"newArray====%@",newArray);
+                 
+                 NSLog(@"oldArray======%@",myArray);
+                 
+                 
+                 
+                 
+                 self.myArray = [[myArray arrayByAddingObjectsFromArray:newArray] mutableCopy];
+                 
+                 
+                 dispatch_async(dispatch_get_main_queue(), ^
+                                {
+                                    [self.cpllection reloadData];
+                                    [activityIndicatorView stopAnimating];
+                                    if (myArray.count == 0) {
+                                        [TostView showToastInParentView:self.view withText:@"Loading..." withDuaration:2.0];
+                                        
+                                        
+                                    }
                                     
-                                    
-                                }
-                                
-                            });
+                                });
+                 
+             }
              
-             
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         }
+     
+         failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              
              NSLog(@"Error: %@", error.localizedDescription);
              UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
@@ -1971,8 +2031,6 @@ static NSString *CellIdentifier5 = @"parenting";
                          dispatch_async(dispatch_get_main_queue(), ^
                                         {
                                             
-                                            
-                                            
                                             [self.cpllection reloadData];
                                             [activityIndicatorView stopAnimating];
                                             [[UIApplication sharedApplication] endIgnoringInteractionEvents];
@@ -2005,11 +2063,17 @@ static NSString *CellIdentifier5 = @"parenting";
                                 stringForKey:@"REG_userId"];
             
             
+            
+            NSString *langeVarble = [[NSUserDefaults standardUserDefaults]stringForKey:@"LanguageDefalt"];
+            
+            
             NSDictionary *parameters = @{@"user_id" : UserId,
                                          
                                          @"token" : userToken ,
                                          
                                          @"pagination_type" : @"down" ,
+                                         
+                                         @"language_preference" : langeVarble,
                                          
                                          @"article_id" : [[myArray objectAtIndex: [myArray count]-1]objectForKey:@"id"]
                                          
@@ -2486,23 +2550,23 @@ static NSString *CellIdentifier5 = @"parenting";
             [alert show];
         }
     }
-   else if (buttonIndex == 2) {
-      
-       
-       //WhatesUP Sharing
-       
-       NSString * msg = [NSString stringWithFormat:@"%@",urlShare];
-       NSString * urlWhats = [NSString stringWithFormat:@"whatsapp://send?text=%@",msg];
-       NSURL * whatsappURL = [NSURL URLWithString:[urlWhats stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-       if ([[UIApplication sharedApplication] canOpenURL: whatsappURL]) {
-           [[UIApplication sharedApplication] openURL: whatsappURL];
-       } else {
-           UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"WhatsApp not installed." message:@"Your device has no WhatsApp installed." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-           [alert show];
-       }
-       
-       NSLog(@"working whatesup");
-
+    else if (buttonIndex == 2) {
+        
+        
+        //WhatesUP Sharing
+        
+        NSString * msg = [NSString stringWithFormat:@"%@",urlShare];
+        NSString * urlWhats = [NSString stringWithFormat:@"whatsapp://send?text=%@",msg];
+        NSURL * whatsappURL = [NSURL URLWithString:[urlWhats stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        if ([[UIApplication sharedApplication] canOpenURL: whatsappURL]) {
+            [[UIApplication sharedApplication] openURL: whatsappURL];
+        } else {
+            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"WhatsApp not installed." message:@"Your device has no WhatsApp installed." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
+        
+        NSLog(@"working whatesup");
+        
     }
 }
 

@@ -109,32 +109,32 @@ static NSString *CellIdentifier5 = @"parenting";
         
     }
     else {
-  
-    
-    
-    arSelectedRows = [[NSMutableArray alloc] init];
-    arSelectedLike = [[NSMutableArray alloc]init];
-    
-    unSelectBook = [[NSMutableArray alloc]init];
-    unSelectedLike = [[NSMutableArray alloc]init];
-    
-    
-    // Do any additional setup after loading the view.
-    activityIndicatorView = [[CDActivityIndicatorView alloc] initWithImage:[UIImage imageNamed:@"indicater.png"]];
-    
-    activityIndicatorView.center = self.view.center;
-    
-    [self.view addSubview:activityIndicatorView];
-    
-    [activityIndicatorView startAnimating];
-
-    myArray = [[NSMutableArray alloc]init];
-
-    refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(startRefresh)
-             forControlEvents:UIControlEventValueChanged];
-    [self.myCollectionView addSubview:refreshControl];
-    self.myCollectionView.alwaysBounceVertical = YES;
+        
+        
+        
+        arSelectedRows = [[NSMutableArray alloc] init];
+        arSelectedLike = [[NSMutableArray alloc]init];
+        
+        unSelectBook = [[NSMutableArray alloc]init];
+        unSelectedLike = [[NSMutableArray alloc]init];
+        
+        
+        // Do any additional setup after loading the view.
+        activityIndicatorView = [[CDActivityIndicatorView alloc] initWithImage:[UIImage imageNamed:@"indicater.png"]];
+        
+        activityIndicatorView.center = self.view.center;
+        
+        [self.view addSubview:activityIndicatorView];
+        
+        [activityIndicatorView startAnimating];
+        
+        myArray = [[NSMutableArray alloc]init];
+        
+        refreshControl = [[UIRefreshControl alloc] init];
+        [refreshControl addTarget:self action:@selector(startRefresh)
+                 forControlEvents:UIControlEventValueChanged];
+        [self.myCollectionView addSubview:refreshControl];
+        self.myCollectionView.alwaysBounceVertical = YES;
         
     }
     
@@ -183,7 +183,7 @@ static NSString *CellIdentifier5 = @"parenting";
     }
     else {
         NSLog(@"Sign In User...");
-  
+        
     }
     
 }
@@ -192,7 +192,7 @@ static NSString *CellIdentifier5 = @"parenting";
     [super viewDidAppear:animated];
     
     
-        [self FeatchData];
+    [self FeatchData];
     
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"LanguageSettings"]) {
         
@@ -1557,7 +1557,7 @@ static NSString *CellIdentifier5 = @"parenting";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
-      NSString *ScreenNama = [[myArray objectAtIndex:indexPath.row]objectForKey:@"title"];
+    NSString *ScreenNama = [[myArray objectAtIndex:indexPath.row]objectForKey:@"title"];
     
     if (IS_IPAD)
     {
@@ -1605,7 +1605,7 @@ static NSString *CellIdentifier5 = @"parenting";
                 //wc.IdValue = foodId;
                 
                 wc.articalID = foodId;
-                  wc.screenValue = ScreenNama;
+                wc.screenValue = ScreenNama;
                 
                 [self.navigationController pushViewController:wc animated:YES];
                 
@@ -1627,7 +1627,7 @@ static NSString *CellIdentifier5 = @"parenting";
                 //wc.IdValue = foodId;
                 
                 wc.articalID = foodId;
-                  wc.screenValue = ScreenNama;
+                wc.screenValue = ScreenNama;
                 
                 [self.navigationController pushViewController:wc animated:YES];
                 
@@ -1658,7 +1658,7 @@ static NSString *CellIdentifier5 = @"parenting";
             NSLog(@"ArticalId========%@",foodId);
             
             wc.articalID = foodId;
-              wc.screenValue = ScreenNama;
+            wc.screenValue = ScreenNama;
             
             [self.navigationController pushViewController:wc animated:YES];
             
@@ -1674,7 +1674,7 @@ static NSString *CellIdentifier5 = @"parenting";
             NSLog(@"ArticalId========%@",foodId);
             
             wc.articalID = foodId;
-              wc.screenValue = ScreenNama;
+            wc.screenValue = ScreenNama;
             
             [self.navigationController pushViewController:wc animated:YES];
             
@@ -1689,7 +1689,7 @@ static NSString *CellIdentifier5 = @"parenting";
             NSLog(@"ArticalId========%@",foodId);
             
             wc.articalID = foodId;
-              wc.screenValue = ScreenNama;
+            wc.screenValue = ScreenNama;
             
             [self.navigationController pushViewController:wc animated:YES];
             
@@ -1705,7 +1705,7 @@ static NSString *CellIdentifier5 = @"parenting";
             NSLog(@"ArticalId========%@",foodId);
             
             wc.articalID = foodId;
-              wc.screenValue = ScreenNama;
+            wc.screenValue = ScreenNama;
             
             [self.navigationController pushViewController:wc animated:YES];
             
@@ -1729,7 +1729,7 @@ static NSString *CellIdentifier5 = @"parenting";
             NSLog(@"ArticalId========%@",foodId);
             
             wc.articalID = foodId;
-              wc.screenValue = ScreenNama;
+            wc.screenValue = ScreenNama;
             
             [self.navigationController pushViewController:wc animated:YES];
             
@@ -1759,7 +1759,7 @@ static NSString *CellIdentifier5 = @"parenting";
                 //wc.IdValue = foodId;
                 
                 wc.articalID = foodId;
-                  wc.screenValue = ScreenNama;
+                wc.screenValue = ScreenNama;
                 
                 [self.navigationController pushViewController:wc animated:YES];
                 
@@ -1781,7 +1781,7 @@ static NSString *CellIdentifier5 = @"parenting";
                 //wc.IdValue = foodId;
                 
                 wc.articalID = foodId;
-                  wc.screenValue = ScreenNama;
+                wc.screenValue = ScreenNama;
                 
                 [self.navigationController pushViewController:wc animated:YES];
                 
@@ -1812,7 +1812,7 @@ static NSString *CellIdentifier5 = @"parenting";
             NSLog(@"ArticalId========%@",foodId);
             
             wc.articalID = foodId;
-              wc.screenValue = ScreenNama;
+            wc.screenValue = ScreenNama;
             
             [self.navigationController pushViewController:wc animated:YES];
             
@@ -1828,7 +1828,7 @@ static NSString *CellIdentifier5 = @"parenting";
             NSLog(@"ArticalId========%@",foodId);
             
             wc.articalID = foodId;
-              wc.screenValue = ScreenNama;
+            wc.screenValue = ScreenNama;
             
             [self.navigationController pushViewController:wc animated:YES];
             
@@ -1843,7 +1843,7 @@ static NSString *CellIdentifier5 = @"parenting";
             NSLog(@"ArticalId========%@",foodId);
             
             wc.articalID = foodId;
-              wc.screenValue = ScreenNama;
+            wc.screenValue = ScreenNama;
             
             [self.navigationController pushViewController:wc animated:YES];
             
@@ -1859,7 +1859,7 @@ static NSString *CellIdentifier5 = @"parenting";
             NSLog(@"ArticalId========%@",foodId);
             
             wc.articalID = foodId;
-              wc.screenValue = ScreenNama;
+            wc.screenValue = ScreenNama;
             [self.navigationController pushViewController:wc animated:YES];
             
             
@@ -1886,7 +1886,7 @@ static NSString *CellIdentifier5 = @"parenting";
                         stringForKey:@"REG_userId"];
     
     NSString *langeVarble = [[NSUserDefaults standardUserDefaults]stringForKey:@"LanguageDefalt"];
-
+    
     NSDictionary *parameters = @{@"user_id" : UserId ,
                                  @"token" :userToken ,
                                  
@@ -1899,24 +1899,79 @@ static NSString *CellIdentifier5 = @"parenting";
       parameters:parameters
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              // NSLog(@"JSON: %@", responseObject);
-             NSMutableArray *newArray = [[NSMutableArray alloc]init];
              
-             newArray = [responseObject objectForKey:@"result"];
+             NSString *errorStringForSectionToken = [responseObject objectForKey:@"error_code"];
              
-             NSLog(@"newArray====%@",newArray);
+             int value = [errorStringForSectionToken intValue];
              
-             NSLog(@"oldArray======%@",myArray);
-             
-             self.myArray = [[myArray arrayByAddingObjectsFromArray:newArray] mutableCopy];
-             
-             
-             dispatch_async(dispatch_get_main_queue(), ^
-                            {
-                                [self.myCollectionView reloadData];
-                                [activityIndicatorView stopAnimating];
-                                
-                            });
-             
+             if (value == 406) {
+                 
+                 [FBSession.activeSession closeAndClearTokenInformation];
+                 
+                 NSHTTPCookie *cookie;
+                 NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+                 for (cookie in [storage cookies])
+                 {
+                     NSString* domainName = [cookie domain];
+                     NSRange domainRange = [domainName rangeOfString:@"facebook"];
+                     if(domainRange.length > 0)
+                     {
+                         [storage deleteCookie:cookie];
+                     }
+                 }
+                 
+                 
+                 FBSession* session = [FBSession activeSession];
+                 [session closeAndClearTokenInformation];
+                 [session close];
+                 [FBSession setActiveSession:nil];
+                 
+                 NSHTTPCookieStorage* cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+                 NSArray* facebookCookies = [cookies cookiesForURL:[NSURL         URLWithString:@"https://facebook.com/"]];
+                 
+                 for (NSHTTPCookie* cookie in facebookCookies) {
+                     [cookies deleteCookie:cookie];
+                 }
+                 
+                 [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"logged_in"];
+                 
+                 // [self signOut];
+                 
+                 [[GPPSignIn sharedInstance] signOut];
+                 
+                 [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"PARlogged_in"];
+                 [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"PartiallyRegistered"];
+                 
+                 [[NSUserDefaults standardUserDefaults] synchronize];
+
+                 
+                 ViewController *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
+                                       instantiateViewControllerWithIdentifier:@"ViewContr"];
+                 
+                 [self.navigationController pushViewController:wc animated:YES];
+                 
+             }else {
+                 NSMutableArray *newArray = [[NSMutableArray alloc]init];
+                 
+                 newArray = [responseObject objectForKey:@"result"];
+                 
+                 NSLog(@"newArray====%@",newArray);
+                 
+                 NSLog(@"oldArray======%@",myArray);
+                 
+                 self.myArray = [[myArray arrayByAddingObjectsFromArray:newArray] mutableCopy];
+                 
+                 NSOrderedSet *mySet = [[NSOrderedSet alloc] initWithArray:myArray];
+                 myArray = [[NSMutableArray alloc] initWithArray:[mySet array]];
+                 
+                 
+                 dispatch_async(dispatch_get_main_queue(), ^
+                                {
+                                    [self.myCollectionView reloadData];
+                                    [activityIndicatorView stopAnimating];
+                                    
+                                });
+             }
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              
@@ -2027,7 +2082,7 @@ static NSString *CellIdentifier5 = @"parenting";
     
     //[self.myCollectionView reloadData];
     
- 
+    
     
     [ self->refreshControl endRefreshing];
     
@@ -2386,7 +2441,7 @@ static NSString *CellIdentifier5 = @"parenting";
         NSLog(@"working whatesup");
         
     }
-
+    
 }
 
 

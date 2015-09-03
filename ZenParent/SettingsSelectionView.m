@@ -138,6 +138,13 @@
         
         [[NSUserDefaults standardUserDefaults] setObject:cellText forKey:@"status3"];
         [[NSUserDefaults standardUserDefaults]synchronize];
+        
+        
+        NSLog(@"Cell Text ==== %@",cellText);
+        
+         NSLog(@"detailTextId ==== %@",detailTextId);
+        
+        
         [self.navigationController popViewControllerAnimated:YES ];
         
     }

@@ -424,22 +424,22 @@
 
 {
     
-    NSString *userToken = [[NSUserDefaults standardUserDefaults]
-                           stringForKey:@"REG_TOKEN"];
+   NSString *userToken = [[NSUserDefaults standardUserDefaults]
+                          stringForKey:@"REG_TOKEN"];
     
     NSString *UserId = [[NSUserDefaults standardUserDefaults]
                         stringForKey:@"REG_userId"];
     
-      NSString *langeVarble = [[NSUserDefaults standardUserDefaults]stringForKey:@"LanguageDefalt"];
+    NSString *langeVarble = [[NSUserDefaults standardUserDefaults]stringForKey:@"LanguageDefalt"];
     
-    NSDictionary *parameters = @{@"user_id" : UserId ,
+    NSDictionary *parameters = @{
+                                 @"user_id" : UserId ,
                                  
                                  @"token" : userToken ,
                                  
                                  @"type" : @"recipes" ,
                                  
                                  @"language_preference" : langeVarble
-                                 
                                  
                                  };
     
@@ -452,6 +452,56 @@
          success:^(AFHTTPRequestOperation *operation, id responseObject) {
              
              NSLog(@"JSON: %@", responseObject);
+             NSString *errorStringForSectionToken = [responseObject objectForKey:@"error_code"];
+             
+             int value = [errorStringForSectionToken intValue];
+             
+             if (value == 406) {
+                 [FBSession.activeSession closeAndClearTokenInformation];
+                 
+                 NSHTTPCookie *cookie;
+                 NSHTTPCookieStorage *storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+                 for (cookie in [storage cookies])
+                 {
+                     NSString* domainName = [cookie domain];
+                     NSRange domainRange = [domainName rangeOfString:@"facebook"];
+                     if(domainRange.length > 0)
+                     {
+                         [storage deleteCookie:cookie];
+                     }
+                 }
+                 
+                 
+                 FBSession* session = [FBSession activeSession];
+                 [session closeAndClearTokenInformation];
+                 [session close];
+                 [FBSession setActiveSession:nil];
+                 
+                 NSHTTPCookieStorage* cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+                 NSArray* facebookCookies = [cookies cookiesForURL:[NSURL         URLWithString:@"https://facebook.com/"]];
+                 
+                 for (NSHTTPCookie* cookie in facebookCookies) {
+                     [cookies deleteCookie:cookie];
+                 }
+                 
+                 [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"logged_in"];
+                 
+                 // [self signOut];
+                 
+                 [[GPPSignIn sharedInstance] signOut];
+                 
+                 [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"PARlogged_in"];
+                 [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"PartiallyRegistered"];
+                 
+                 [[NSUserDefaults standardUserDefaults] synchronize];
+
+                 
+                 ViewController *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
+                                       instantiateViewControllerWithIdentifier:@"ViewContr"];
+                 
+                 [self.navigationController pushViewController:wc animated:YES];
+                 
+             }else {
              
              myArray = [responseObject objectForKey: @"result"];
              
@@ -470,27 +520,25 @@
                  //                [required setObject:articalIDS forKey:bookMarkIDS];
                  
                  
-                 NSDictionary *dict123 = @{@"articalIDS" :[[myArray objectAtIndex:i]objectForKey:@"id"],
+        NSDictionary *dict123 = @{@"articalIDS" :[[myArray objectAtIndex:i]objectForKey:@"id"],
                                            @"bookMarkIDS"   : [[myArray objectAtIndex:i]objectForKey:@"liked"]                                        };
                  
                  [required addObject: dict123];
                  
              }
+
               NSLog(@"requiredValues =====%@",required);
              
              dispatch_async(dispatch_get_main_queue(), ^
                             
                             {
-                                
                                 [self.myCollection reloadData];
-                                
-                                 [activityIndicatorView stopAnimating];
-                                
-                                
-                                
+                                [activityIndicatorView stopAnimating];
+         
                             });
              
-         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+         }
+         }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
              
              
              

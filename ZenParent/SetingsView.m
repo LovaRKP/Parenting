@@ -14,7 +14,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@interface SetingsView ()<UIPickerViewDelegate ,UIPickerViewDataSource>
+@interface SetingsView ()
 {
   
     NSMutableArray *Settings;
@@ -23,7 +23,10 @@
    // NSString *userTokenValue;
     NSMutableArray *selectedIDS;
     CDActivityIndicatorView * activityIndicatorView ;
-    NSString *userDate;
+    NSDate *userDate;
+    NSString *dateString;
+    NSString *dateToDisplay;
+    
 }
 
 
@@ -48,6 +51,9 @@
     [self.view addSubview:activityIndicatorView];
     
     [activityIndicatorView startAnimating];
+    
+    _DatePickerView.hidden = YES;
+    _PickerToolBar.hidden = YES;
     
     
     self.navigationItem.title = @"Your Details";
@@ -148,7 +154,7 @@
  */
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [Settings count]-2;
+    return [Settings count]-3;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -163,25 +169,54 @@
     
     
     if (indexPath.row == 0 ){
-        cell.detailTextLabel.text =  [[NSUserDefaults standardUserDefaults]objectForKey:@"status"];
+    cell.detailTextLabel.text =  [[NSUserDefaults standardUserDefaults]objectForKey:@"status"];
+        
+       cell.detailTextLabel.font=[UIFont systemFontOfSize:16.0];
         
     }else if (indexPath.row == 1 ){
         
         cell.detailTextLabel.text =  [[NSUserDefaults standardUserDefaults]objectForKey:@"status1"];
+        cell.detailTextLabel.font=[UIFont systemFontOfSize:16.0];
     }else if (indexPath.row == 2 ){
         
         cell.detailTextLabel.text =  [[NSUserDefaults standardUserDefaults]objectForKey:@"status2"];
+        cell.detailTextLabel.font=[UIFont systemFontOfSize:16.0];
     }
     else if (indexPath.row == 3 ){
         
         cell.detailTextLabel.text =  [[NSUserDefaults standardUserDefaults]objectForKey:@"status3"];
+        cell.detailTextLabel.font=[UIFont systemFontOfSize:16.0];
     }
     else if (indexPath.row == 4 ){
         
-        cell.detailTextLabel.text =  [[NSUserDefaults standardUserDefaults]objectForKey:@"status4"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        NSString * valueOfLabe = [NSString stringWithFormat:@"%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"DetailTextLabelDOB"]];
+        
+        if ([[NSUserDefaults standardUserDefaults]objectForKey:@"DetailTextLabelDOB"] == nil || [[NSUserDefaults standardUserDefaults]objectForKey:@"DetailTextLabelDOB"] == (id)[NSNull null] ) {
+            NSLog(@"Value of %@",valueOfLabe);
+            
+             cell.detailTextLabel.text = @"Please Select The D.O.B";
+             cell.detailTextLabel.font=[UIFont systemFontOfSize:16.0];
+          
+        }else {
+        
+             NSLog(@"Value of %@",valueOfLabe);
+            
+            cell.detailTextLabel.text = valueOfLabe;
+            cell.detailTextLabel.font=[UIFont systemFontOfSize:16.0];
+ 
+        }
+        
+      
+
     }
 
     cell.textLabel.text = [[Settings objectAtIndex:indexPath.row]objectForKey:@"parent"];
+    
+    if (indexPath.row == 4) {
+      
+         cell.textLabel.text = @"Select Date Of Birth";
+    }
     
     cell.textLabel.textColor = [UIColor colorWithRed:116.0f/255.0f
                                                green:79.0f/255.0f
@@ -243,22 +278,23 @@
         
         
     }else if (indexPath.row == 4){
-//        SettingsSelectionView *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
-//                                     
-//                                     instantiateViewControllerWithIdentifier:@"Settings"];
-//        
-//        childDic = [[Settings objectAtIndex:indexPath.row]objectForKey:@"childs"];
-//        wc.tableData = childDic;
-//        wc.table = _mytable;
-//        
-//        [self.navigationController pushViewController:wc animated:YES];
+
         
         // Working On this to add date picker
         
         
+        [_PickerToolBar setTintColor:[UIColor whiteColor]];
 
+        _DatePickerView.hidden = NO;
+        _PickerToolBar.hidden = NO;
+        
+        _DatePickerView.backgroundColor = [UIColor lightGrayColor];
+        _PickerToolBar.backgroundColor = [UIColor blackColor];
+     
         
         
+  [_DatePickerView addTarget:self   action:@selector(LabelChange:)forControlEvents:UIControlEventValueChanged];
+
         
     }else if (indexPath.row == 5){
         SettingsSelectionView *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
@@ -290,6 +326,7 @@
 
 
 
+
 - (IBAction)dobButtonPressed:(id)sender {
     
     
@@ -311,19 +348,103 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     
-    NSLog(@"selectedArray%@",[[NSUserDefaults standardUserDefaults]objectForKey:@"preverslyIDS"]);
+dateToDisplay = [[NSUserDefaults standardUserDefaults]objectForKey:@"preverslyIDS"];
+
     
-    SettingsView2Controller *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
-                                   instantiateViewControllerWithIdentifier:@"SecondView"];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"dob"] != nil) {
+
+        SettingsView2Controller *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
+                                       instantiateViewControllerWithIdentifier:@"SecondView"];
+        
+        wc.MiltiSelection = Settings;
+        
+        [self.navigationController pushViewController:wc animated:YES];
+        
+        
+    }else {
+
+        
+        if ([UIAlertController class])
+        {
+            
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"ZenParent" message:@"Please Fill in all required fields." preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            [alertController addAction:ok];
+            
+            [self presentViewController:alertController animated:YES completion:nil];
+            
+        }
+        else
+        {
+            
+            UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"ZenParent" message:@"Fill in all required fields" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            
+            [alert show];
+            
+        }
+   
+    }
+
+}
+
+- (IBAction)DonButtonPressedForPicker:(id)sender {
     
-    wc.MiltiSelection = Settings;
+    // Catch the date User Selected and Sve it to the Sever
     
-    [self.navigationController pushViewController:wc animated:YES];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:4 inSection:0];
     
+    UITableViewCell* cell = [_mytable cellForRowAtIndexPath:indexPath];
+    
+   dateString = [NSDateFormatter localizedStringFromDate:userDate
+                                                          dateStyle:NSDateFormatterMediumStyle
+                                                          timeStyle:NSDateFormatterNoStyle];
+    NSLog(@"%@",dateString);
+
+    cell.detailTextLabel.text = dateString;
+
+    [_mytable reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+
+    _PickerToolBar.hidden = YES;
+    _DatePickerView.hidden = YES;
+
     
 }
 
+- (IBAction)cancelPressedForDatePicker:(id)sender {
+   //Dismiss the Bouth Views
+    
+    _DatePickerView.hidden = YES;
+    _PickerToolBar.hidden = YES;
+    
+}
+-(void)LabelChange:(id)sender {
+    
+    
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd/MM/yyyy"];
+    
+    NSString *stringDate = [dateFormatter stringFromDate:_DatePickerView.date];
 
+    userDate = _DatePickerView.date;
+    NSLog(@"userDate Selected ===%@",stringDate);
+    
+    [[NSUserDefaults standardUserDefaults] setValue:stringDate forKey:@"DetailTextLabelDOB"];
+    
+    time_t unixTime = (time_t) [userDate timeIntervalSince1970];
+    
+    NSLog(@"TimeStamp :   %ld",unixTime);
+    
+    [[NSUserDefaults standardUserDefaults] setDouble: unixTime forKey:@"dob"];
+    
+    NSLog(@"Saving Value As :   %@",[[NSUserDefaults standardUserDefaults] objectForKey:@"dob"]);
+   
+    [[NSUserDefaults standardUserDefaults]synchronize];
+
+
+}
 
 
 

@@ -62,11 +62,20 @@
                         stringForKey:@"REG_userId"];
     
     
+    NSString *userDateOfBirth = [[NSUserDefaults standardUserDefaults]objectForKey:@"dob"];
+    
+    NSLog(@"usertoken ====%@",userDateOfBirth);
+    
+
+    
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSDictionary *parameters = @{@"user_id" : UserId ,
                                  
-                                 @"token" : userToken
+                                 @"token" : userToken ,
+                                 
+                                 @"dob"  : userDateOfBirth
                                  
                                  };
     
@@ -219,6 +228,14 @@
     
      NSLog(@"usertoken ====%@",userToken);
     
+    
+    
+    NSString *userDateOfBirth = [[NSUserDefaults standardUserDefaults]objectForKey:@"dob"];
+    
+    NSLog(@"usertoken ====%@",userDateOfBirth);
+    
+    
+    
     NSMutableArray *parameters1 = [[[NSUserDefaults standardUserDefaults] arrayForKey:@"preverslyIDS"] mutableCopy];
     NSLog(@"tags ====%@",parameters1);
     
@@ -231,6 +248,7 @@
  
     [parameters setObject: userId forKey:@"user_id"];
     [parameters setObject: userToken forKey:@"token"];
+    [parameters setObject: userDateOfBirth forKey:@"dob"];
     
     for (i = 0 ; i < parameters1.count   ; i++) {
         
