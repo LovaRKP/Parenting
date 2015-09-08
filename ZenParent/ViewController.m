@@ -17,9 +17,10 @@
 #import "HOMEViewController.h"
 #import "AFHTTPRequestOperationManager.h"
 
+
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
-@interface ViewController () <GPPSignInDelegate>
+@interface ViewController () <GPPSignInDelegate ,UIWebViewDelegate>
 
 {
     //FBLogin
@@ -81,6 +82,14 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     
     
     
+    //Leasen for notification
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showMainMenu:)
+                                                 name:@"loginComplete" object:nil];
+    
+    
+    
     
     [FBLoginView class];
     
@@ -88,7 +97,15 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     [activityIndicatorView startAnimating];
     
     self.loginButton.delegate = self;
+    
     self.loginButton.readPermissions = @[@"public_profile", @"email"];
+    
+    
+    if (![UIApplication.sharedApplication canOpenURL:[NSURL URLWithString:@"fb://"]])
+    {
+        self.loginButton.loginBehavior = FBLoginViewTooltipBehaviorDisable;
+    }
+    
     
     [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         
@@ -149,6 +166,10 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     [super viewWillAppear:animated];
     _loginButton.delegate = self;
     
+    
+    
+    
+    
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -190,28 +211,55 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     _userdata = (NSMutableDictionary *)user;
     _userurl = user.objectID;
     userLogInBy = @"facebook";
-
- accessTocken = [NSString stringWithFormat:@"%@",[[FBSession activeSession] accessTokenData]];
- 
+    
+    accessTocken = [NSString stringWithFormat:@"%@",[[FBSession activeSession] accessTokenData]];
     
     
-
+    
+    
     NSLog(@"%@",[[FBSession activeSession] accessTokenData]);
     
     if (user == nil) {
-
+        
         return;
         
     }else{
         
         [self loginApi];
-
+        
         userImageURL = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large", [user objectID]];
         NSLog(@"userimge===%@",userImageURL);
         
         
     }
 }
+
+
+// the function specified in the same class where we defined the addObserver
+- (void)showMainMenu:(NSNotification *)note {
+    
+    NSLog(@"Received Notification - Someone seems to have logged in%@", note);
+    
+    // NSURL *googleUrl = note.object;
+    
+    [activityIndicatorView startAnimating];
+    
+    UIWebView *webview=[[UIWebView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
+    // NSURL *pass = [[note userInfo] valueForKey:@"url"];
+    // NSURL *nsurl=[NSURL URLWithString:url];
+    NSURL *pass = note.object;
+    NSURLRequest *nsrequest=[NSURLRequest requestWithURL:pass];
+    webview.backgroundColor = [UIColor whiteColor];
+    webview.frame=CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+
+    [webview setDelegate:self];
+    [webview loadRequest:nsrequest];
+    [self.view addSubview:webview];
+    webview.delegate = self;
+    
+}
+
+
 
 
 -(void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView{
@@ -293,9 +341,9 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     NSLog(@"id_token ========%@",accessTocken);
     
     accessTocken = [auth valueForKey:@"accessToken"]; // access tocken pass in .pch file
-
+    
     NSLog(@"%@",accessTocken);
-
+    
     NSString *str=[NSString stringWithFormat:@"https://www.googleapis.com/oauth2/v1/userinfo?access_token=%@",accessTocken];
     NSString *escapedUrl = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",escapedUrl]];
@@ -345,6 +393,38 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
 }
 
 
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    NSLog(@"Error : %@",error);
+    [activityIndicatorView stopAnimating];
+    
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    // finished loading, hide the activity indicator in the status bar
+    [activityIndicatorView stopAnimating];
+    
+}
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    if ([[[request URL] absoluteString] hasPrefix:@"in.zenparent:/oauth2callback"]) {
+        [GPPURLHandler handleURL:request.URL sourceApplication:@"com.apple.mobilesafari" annotation:nil];
+        // [self.navigationController popViewControllerAnimated:YES];
+        
+        
+        [webView removeFromSuperview];
+        
+        return NO;
+    }
+    return YES;
+}
+
+
+
+
+
 
 - (IBAction)privacePolicy:(id)sender {
     
@@ -370,7 +450,7 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *params = @{@"email": userEmailForFB,
                              
-                             @"device_token": diviceTokenOr
+                             @"device_token": @"1234"
                              ,
                              @"device_type": @"ios"
                              ,

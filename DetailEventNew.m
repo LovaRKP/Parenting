@@ -733,9 +733,15 @@
                                 
                                 NSString *abouttext = [myArray objectForKey:@"article_content"];
                                 
-                                NSString *htmlString = abouttext;
                                 
-                                NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[htmlString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+                                NSString *newString;
+                                
+                                newString =  [abouttext stringByReplacingOccurrencesOfString: @"<br/>" withString:@""];
+                                NSLog(@"newString === %@",newString);
+                                
+                               // NSString *htmlString = abouttext;
+                                
+                                NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[newString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
                                 _textView.attributedText = attributedString;
                                 
                                 
@@ -748,16 +754,11 @@
                                     
                                     _textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.0f];
                                     _textView.textContainerInset = UIEdgeInsetsMake(0, 20, 0, 20);
-                                    
-                                    
+                             
                                 }
-                                
-                                
-                                
+                    
                                 _textView.editable = NO;
-                                
-                                
-                                
+                          
                                 //MapView
                                 
                                 venuDetails = [myArray objectForKey:@"venue"];
@@ -985,7 +986,8 @@
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSDictionary *params =@{@"user_id" : UserId ,
+    NSDictionary *params =@{
+                            @"user_id" : UserId ,
                             
                             @"token" : userToken,
                             

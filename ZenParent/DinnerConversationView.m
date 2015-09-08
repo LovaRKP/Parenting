@@ -46,9 +46,9 @@
 
 - (void)viewDidLoad {
     
-   [super viewDidLoad];
+    [super viewDidLoad];
     self.screenName = @"Dinner Conversations Screen";
- 
+    
     arSelectedRows = [[NSMutableArray alloc] init];
     arSelectedLike = [[NSMutableArray alloc]init];
     
@@ -63,7 +63,7 @@
     [self.view addSubview:activityIndicatorView];
     
     [activityIndicatorView startAnimating];
-
+    
     self.navigationItem.title = @"Dinner Conversations";
     
     [self retriveDataFromServer];
@@ -156,11 +156,11 @@
     
     if (IS_IPAD)
     {
-       cell.dinnerTittel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0];
+        cell.dinnerTittel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0];
         
     }else{
-    
-    cell.dinnerTittel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0];
+        
+        cell.dinnerTittel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0];
     }
     cell.dinnerTittel.textColor = [UIColor whiteColor];
     
@@ -332,37 +332,37 @@
 {
     
     NSLog(@"working");
-      NSString *ScreenNama = [[myArray objectAtIndex:indexPath.row]objectForKey:@"title"];
+    NSString *ScreenNama = [[myArray objectAtIndex:indexPath.row]objectForKey:@"title"];
     
     if (IS_IPAD)
     {
         DetailDinnerViewNew *wc = [[UIStoryboard storyboardWithName:@"StoryboardiPad" bundle:nil]
                                    
                                    instantiateViewControllerWithIdentifier:@"DetailDinnerViewNew"];
-
+        
         NSString *foodId = [[myArray objectAtIndex:indexPath.row]objectForKey:@"id"];
         
         NSLog(@"ArticalId========%@",foodId);
         
         wc.articalID = foodId;
         wc.screenValue = ScreenNama;
-
+        
         [self.navigationController pushViewController:wc animated:YES];
         
     }else {
-
-    DetailDinnerViewNew *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
-                               
-                               instantiateViewControllerWithIdentifier:@"DetailDinnerViewNew"];
-
-    NSString *foodId = [[myArray objectAtIndex:indexPath.row]objectForKey:@"id"];
-    
-    NSLog(@"ArticalId========%@",foodId);
-    
-    wc.articalID = foodId;
-    wc.screenValue = ScreenNama;
-
-    [self.navigationController pushViewController:wc animated:YES];
+        
+        DetailDinnerViewNew *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
+                                   
+                                   instantiateViewControllerWithIdentifier:@"DetailDinnerViewNew"];
+        
+        NSString *foodId = [[myArray objectAtIndex:indexPath.row]objectForKey:@"id"];
+        
+        NSLog(@"ArticalId========%@",foodId);
+        
+        wc.articalID = foodId;
+        wc.screenValue = ScreenNama;
+        
+        [self.navigationController pushViewController:wc animated:YES];
         
     }
     
@@ -380,7 +380,7 @@
     NSString *UserId = [[NSUserDefaults standardUserDefaults]
                         stringForKey:@"REG_userId"];
     
-       NSString *langeVarble = [[NSUserDefaults standardUserDefaults]stringForKey:@"LanguageDefalt"];
+    NSString *langeVarble = [[NSUserDefaults standardUserDefaults]stringForKey:@"LanguageDefalt"];
     
     NSDictionary *parameters = @{@"user_id" : UserId,
                                  
@@ -445,7 +445,7 @@
                  [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"PartiallyRegistered"];
                  
                  [[NSUserDefaults standardUserDefaults] synchronize];
-
+                 
                  
                  ViewController *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
                                        instantiateViewControllerWithIdentifier:@"ViewContr"];
@@ -453,21 +453,21 @@
                  [self.navigationController pushViewController:wc animated:YES];
                  
              }else {
-             
-             
-             myArray = [responseObject objectForKey: @"result"];
-             
-             NSLog(@"arrayCount======%lu",(unsigned long)myArray.count);
-             
-             dispatch_async(dispatch_get_main_queue(), ^
-                            
-                            {
+                 
+                 
+                 myArray = [responseObject objectForKey: @"result"];
+                 
+                 NSLog(@"arrayCount======%lu",(unsigned long)myArray.count);
+                 
+                 dispatch_async(dispatch_get_main_queue(), ^
                                 
-                                [self.mycollectionView reloadData];
-                                
-                               [activityIndicatorView stopAnimating];
-                                
-                            });
+                                {
+                                    
+                                    [self.mycollectionView reloadData];
+                                    
+                                    [activityIndicatorView stopAnimating];
+                                    
+                                });
              }
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -478,7 +478,7 @@
              UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
              [alertController addAction:ok];
              [self presentViewController:alertController animated:YES completion:nil];
-            [activityIndicatorView stopAnimating];
+             [activityIndicatorView stopAnimating];
              
          }];
     
@@ -526,101 +526,101 @@
     }
     else {
         
-
-    
-    UIButton *senderButton = (UIButton *)sender;
-    
-    NSLog(@"current Row=%ld",(long)senderButton.tag);
-    
-    
-    
-    NSInteger i = [sender tag];
-    
-    NSString *bootagLikeServer = [NSString stringWithFormat:@"%ld", (long)i];
-    
-    NSLog(@"current Row  == %@",bootagLikeServer);
-    
-    
-    
-    // Sending to webservices for bookmarking
-    
-    NSString *userToken = [[NSUserDefaults standardUserDefaults]
-                           
-                           stringForKey:@"REG_TOKEN"];
-    
-    NSString *UserId = [[NSUserDefaults standardUserDefaults]
-                        
-                        stringForKey:@"REG_userId"];
-    
-    NSLog(@"ArticalId=====final     %@",bootagLikeServer);
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSDictionary *params =@{@"user_id" : UserId ,
+        
+        
+        UIButton *senderButton = (UIButton *)sender;
+        
+        NSLog(@"current Row=%ld",(long)senderButton.tag);
+        
+        
+        
+        NSInteger i = [sender tag];
+        
+        NSString *bootagLikeServer = [NSString stringWithFormat:@"%ld", (long)i];
+        
+        NSLog(@"current Row  == %@",bootagLikeServer);
+        
+        
+        
+        // Sending to webservices for bookmarking
+        
+        NSString *userToken = [[NSUserDefaults standardUserDefaults]
+                               
+                               stringForKey:@"REG_TOKEN"];
+        
+        NSString *UserId = [[NSUserDefaults standardUserDefaults]
                             
-                            @"token" : userToken ,
-                            
-                            @"article_id" : bootagLikeServer
-                            
-                            };
-    
-    [manager POST:@"http://zenparent.in/api/like" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                            stringForKey:@"REG_userId"];
         
-        NSLog(@"JSON: %@", responseObject);
+        NSLog(@"ArticalId=====final     %@",bootagLikeServer);
         
-        senderButton.selected = ![senderButton isSelected]; // Important line
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         
-        if (senderButton.selected)
-            
-        {
-            
-            NSLog(@"Selected");
-            
-            NSLog(@" button tag %li",(long)senderButton.tag);
-            
-            [sender setImage:[UIImage imageNamed:@"like_selectedNew@2x.png"] forState:UIControlStateSelected];
-            
-            NSString *alertMessage = @"Article Liked";
-            
-            [TostView showToastInParentView:self.view withText:alertMessage withDuaration:1.0];
-            
-            [arSelectedLike addObject:bootagLikeServer];
-            
-            NSLog(@"arSelectedRows === %@",arSelectedRows);
-            
-        }
+        NSDictionary *params =@{@"user_id" : UserId ,
+                                
+                                @"token" : userToken ,
+                                
+                                @"article_id" : bootagLikeServer
+                                
+                                };
         
-        else
+        [manager POST:@"http://zenparent.in/api/like" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
-        {
+            NSLog(@"JSON: %@", responseObject);
             
-            NSLog(@"Un Selected");
+            senderButton.selected = ![senderButton isSelected]; // Important line
             
-            NSLog(@"%li",(long)senderButton.tag);
+            if (senderButton.selected)
+                
+            {
+                
+                NSLog(@"Selected");
+                
+                NSLog(@" button tag %li",(long)senderButton.tag);
+                
+                [sender setImage:[UIImage imageNamed:@"like_selectedNew@2x.png"] forState:UIControlStateSelected];
+                
+                NSString *alertMessage = @"Article Liked";
+                
+                [TostView showToastInParentView:self.view withText:alertMessage withDuaration:1.0];
+                
+                [arSelectedLike addObject:bootagLikeServer];
+                
+                NSLog(@"arSelectedRows === %@",arSelectedRows);
+                
+            }
             
-            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:articalid];
+            else
+                
+            {
+                
+                NSLog(@"Un Selected");
+                
+                NSLog(@"%li",(long)senderButton.tag);
+                
+                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:articalid];
+                
+                [sender setImage:[UIImage imageNamed:@"likeNew@2x.png"] forState:UIControlStateNormal];
+                
+                NSString *alertMessage = @"Article Un Selected";
+                
+                [TostView showToastInParentView:self.view withText:alertMessage withDuaration:1.0];
+                
+                [arSelectedLike removeObject:bootagLikeServer];
+                [unSelectedLike addObject:bootagLikeServer];
+                
+            }
             
-            [sender setImage:[UIImage imageNamed:@"likeNew@2x.png"] forState:UIControlStateNormal];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
-            NSString *alertMessage = @"Article Un Selected";
+            NSLog(@"Error: %@", error);
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
             
-            [TostView showToastInParentView:self.view withText:alertMessage withDuaration:1.0];
+            UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            [alertController addAction:ok];
+            [self presentViewController:alertController animated:YES completion:nil];
             
-            [arSelectedLike removeObject:bootagLikeServer];
-            [unSelectedLike addObject:bootagLikeServer];
-            
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        NSLog(@"Error: %@", error);
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        [alertController addAction:ok];
-        [self presentViewController:alertController animated:YES completion:nil];
-        
-    }];
+        }];
     }
     
     
@@ -667,101 +667,101 @@
     }
     else {
         
-
-    
-    UIButton *senderButton = (UIButton *)sender;
-    
-    NSLog(@"current Row=%ld",(long)senderButton.tag);
-    
-    
-    
-    NSInteger i = [sender tag];
-    
-    NSString *bookTagValueSever = [NSString stringWithFormat:@"%ld", (long)i];
-    
-    NSLog(@"current Row  == %@",bookTagValueSever);
-    
-    
-    
-    // Sending to webservices for bookmarking
-    
-    NSString *userToken = [[NSUserDefaults standardUserDefaults]
-                           
-                           stringForKey:@"REG_TOKEN"];
-    
-    NSString *UserId = [[NSUserDefaults standardUserDefaults]
-                        
-                        stringForKey:@"REG_userId"];
-    
-    NSLog(@"ArticalId=====final     %@",bookTagValueSever);
-    
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    
-    NSDictionary *params =@{@"user_id" : UserId ,
+        
+        
+        UIButton *senderButton = (UIButton *)sender;
+        
+        NSLog(@"current Row=%ld",(long)senderButton.tag);
+        
+        
+        
+        NSInteger i = [sender tag];
+        
+        NSString *bookTagValueSever = [NSString stringWithFormat:@"%ld", (long)i];
+        
+        NSLog(@"current Row  == %@",bookTagValueSever);
+        
+        
+        
+        // Sending to webservices for bookmarking
+        
+        NSString *userToken = [[NSUserDefaults standardUserDefaults]
+                               
+                               stringForKey:@"REG_TOKEN"];
+        
+        NSString *UserId = [[NSUserDefaults standardUserDefaults]
                             
-                            @"token" : userToken ,
-                            
-                            @"article_id" : bookTagValueSever
-                            
-                            };
-    
-    [manager POST:@"http://zenparent.in/api/bookmark" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                            stringForKey:@"REG_userId"];
         
-        NSLog(@"JSON: %@", responseObject);
+        NSLog(@"ArticalId=====final     %@",bookTagValueSever);
         
-        senderButton.selected = ![senderButton isSelected]; // Important line
+        AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
         
-        if (senderButton.selected)
-            
-        {
-            
-            NSLog(@"Selected");
-            
-            NSLog(@" button tag %li",(long)senderButton.tag);
-            
-            [sender setImage:[UIImage imageNamed:@"bookmark_selectedNew@2x.png"] forState:UIControlStateSelected];
-            
-            NSString *alertMessage = @"Article Bookmarked";
-            
-            [TostView showToastInParentView:self.view withText:alertMessage withDuaration:1.0];
-            
-            [arSelectedRows addObject:bookTagValueSever];
-            
-            NSLog(@"arSelectedRows === %@",arSelectedRows);
-            
-        }
+        NSDictionary *params =@{@"user_id" : UserId ,
+                                
+                                @"token" : userToken ,
+                                
+                                @"article_id" : bookTagValueSever
+                                
+                                };
         
-        else
+        [manager POST:@"http://zenparent.in/api/bookmark" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
             
-        {
+            NSLog(@"JSON: %@", responseObject);
             
-            NSLog(@"Un Selected");
+            senderButton.selected = ![senderButton isSelected]; // Important line
             
-            NSLog(@"%li",(long)senderButton.tag);
+            if (senderButton.selected)
+                
+            {
+                
+                NSLog(@"Selected");
+                
+                NSLog(@" button tag %li",(long)senderButton.tag);
+                
+                [sender setImage:[UIImage imageNamed:@"bookmark_selectedNew@2x.png"] forState:UIControlStateSelected];
+                
+                NSString *alertMessage = @"Article Bookmarked";
+                
+                [TostView showToastInParentView:self.view withText:alertMessage withDuaration:1.0];
+                
+                [arSelectedRows addObject:bookTagValueSever];
+                
+                NSLog(@"arSelectedRows === %@",arSelectedRows);
+                
+            }
             
-            [[NSUserDefaults standardUserDefaults]setBool:NO forKey:articalid];
+            else
+                
+            {
+                
+                NSLog(@"Un Selected");
+                
+                NSLog(@"%li",(long)senderButton.tag);
+                
+                [[NSUserDefaults standardUserDefaults]setBool:NO forKey:articalid];
+                
+                [sender setImage:[UIImage imageNamed:@"bookmarkNew@2x.png"] forState:UIControlStateNormal];
+                
+                NSString *alertMessage = @"Article Un Selected";
+                
+                [TostView showToastInParentView:self.view withText:alertMessage withDuaration:1.0];
+                
+                [arSelectedRows removeObject:bookTagValueSever];
+                [unSelectBook addObject:bookTagValueSever];
+                
+            }
             
-            [sender setImage:[UIImage imageNamed:@"bookmarkNew@2x.png"] forState:UIControlStateNormal];
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
-            NSString *alertMessage = @"Article Un Selected";
+            NSLog(@"Error: %@", error);
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
             
-            [TostView showToastInParentView:self.view withText:alertMessage withDuaration:1.0];
+            UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            [alertController addAction:ok];
+            [self presentViewController:alertController animated:YES completion:nil];
             
-            [arSelectedRows removeObject:bookTagValueSever];
-            [unSelectBook addObject:bookTagValueSever];
-            
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-        NSLog(@"Error: %@", error);
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Error" message:error.localizedDescription preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction* ok = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        [alertController addAction:ok];
-        [self presentViewController:alertController animated:YES completion:nil];
-        
-    }];
+        }];
     }
     
 }
@@ -911,7 +911,7 @@
         NSLog(@"working whatesup");
         
     }
-
+    
 }
 
 // GETING more articals
@@ -926,14 +926,14 @@
         
         // we are at the end
         
-     [activityIndicatorView startAnimating];
-    [TostView showToastInParentView:self.view withText:@"Loading..." withDuaration:2.0];
+        [activityIndicatorView startAnimating];
+        [TostView showToastInParentView:self.view withText:@"Loading..." withDuaration:2.0];
         [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
         
         NSSortDescriptor* sortOrder = [NSSortDescriptor sortDescriptorWithKey: @"self" ascending: NO];
         
         [myArray sortedArrayUsingDescriptors: [NSArray arrayWithObject: sortOrder]];
-
+        
         NSString *savedValue = [[NSUserDefaults standardUserDefaults]
                                 
                                 stringForKey:@"PartiallyRegistered"];
@@ -987,7 +987,7 @@
                 
                 NSString *UserId = [[NSUserDefaults standardUserDefaults]
                                     stringForKey:@"REG_userId"];
-                 NSString *langeVarble = [[NSUserDefaults standardUserDefaults]stringForKey:@"LanguageDefalt"];
+                NSString *langeVarble = [[NSUserDefaults standardUserDefaults]stringForKey:@"LanguageDefalt"];
                 
                 
                 NSDictionary *parameters = @{@"user_id" : UserId,

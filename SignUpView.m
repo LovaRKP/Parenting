@@ -41,9 +41,9 @@
     
     NSString *userImageURL;
     NSString *userLogInBy;
-
+    
     CDActivityIndicatorView * activityIndicatorView ;
-
+    
 }
 
 @end
@@ -64,12 +64,12 @@
     [activityIndicatorView startAnimating];
     
     
-//    
-//    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:116.0f/255.0f
-//                                                                             green:79.0f/255.0f
-//                                                                              blue:141.0f/255.0f
-//                                                                             alpha:1.0f]];
-//    [self.navigationController.navigationBar  setTranslucent:NO];
+    //
+    //    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:116.0f/255.0f
+    //                                                                             green:79.0f/255.0f
+    //                                                                              blue:141.0f/255.0f
+    //                                                                             alpha:1.0f]];
+    //    [self.navigationController.navigationBar  setTranslucent:NO];
     
     self.navigationItem.title = @"Sign In";
     
@@ -279,18 +279,18 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 
 - (IBAction)privacePolicePressedAction:(id)sender {
-
+    
     NSLog(@"working.......");
     
     
@@ -307,15 +307,17 @@
     // DO the Guest Logic Here
     
     NSLog(@"working......");
- // Featch the device token and give to back end
+    // Featch the device token and give to back end
     
+    NSString *diviceTokenOr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
+    NSLog(@"LOGINUSERID  =====%@",diviceTokenOr);
     
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *params = @{
-
+                             
                              @"device_token":@"1238787"
-
+                             
                              };
     manager.responseSerializer = [AFJSONResponseSerializer serializer]; // if response JSON format
     [manager POST:@"http://zenparent.in/api/partial_register" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -324,43 +326,43 @@
         
         NSString * isPartiallyRegistered = [responseObject objectForKey:@"is_partially_registered"];
         
-           NSString *parUserId = [responseObject objectForKey:@"id"];
+        NSString *parUserId = [responseObject objectForKey:@"id"];
         
         NSLog(@"is_partially_registered ====== %@",isPartiallyRegistered);
-
+        
         if ([isPartiallyRegistered isEqualToString:@"1"]) {
             
             NSLog(@"isPartiallyRegistered .............");
-
-    [[NSUserDefaults standardUserDefaults] setObject:isPartiallyRegistered forKey:@"PartiallyRegistered"];
-        
-              [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:isPartiallyRegistered forKey:@"PartiallyRegistered"];
+            
+            [[NSUserDefaults standardUserDefaults] synchronize];
             
             NSString *UserIdForParUser = parUserId;
             NSLog(@"value2 ====== %@",UserIdForParUser);
             
             NSString *deviceTokenForMe = @"123450784748hfhfh447"; //LoginApi
-
+            
             [[NSUserDefaults standardUserDefaults] setObject:deviceTokenForMe forKey:@"REG_TOKEN"];
-
+            
             [[NSUserDefaults standardUserDefaults] setObject:UserIdForParUser forKey:@"REG_userId"];
             
             [[NSUserDefaults standardUserDefaults] setObject:@"English" forKey:@"LanguageDefalt"];
-
+            
             [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"PARlogged_in"];
-  
+            
             [[NSUserDefaults standardUserDefaults] synchronize];
-
+            
             
             HOMEViewController *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
                                       instantiateViewControllerWithIdentifier:@"HOMEIOS"];
             
             [self.navigationController pushViewController:wc animated:YES];
-   
+            
             
         } else {
-        
-          NSLog(@"NormalUser .............");
+            
+            NSLog(@"NormalUser .............");
             
             NSString *valueToSave = @"0";
             [[NSUserDefaults standardUserDefaults] setObject:valueToSave forKey:@"PartiallyRegistered"];
@@ -368,15 +370,15 @@
             
             NSString *UserIdForParUser = parUserId;
             NSLog(@"value2 ====== %@",UserIdForParUser);
-
+            
             HOMEViewController *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
                                       instantiateViewControllerWithIdentifier:@"HOMEIOS"];
             
             [self.navigationController pushViewController:wc animated:YES];
-  
-        
+            
+            
         }
-  
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
         NSLog(@"%@", error);

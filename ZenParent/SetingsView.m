@@ -434,10 +434,10 @@ dateToDisplay = [[NSUserDefaults standardUserDefaults]objectForKey:@"preverslyID
     [[NSUserDefaults standardUserDefaults] setValue:stringDate forKey:@"DetailTextLabelDOB"];
     
     time_t unixTime = (time_t) [userDate timeIntervalSince1970];
+
+    NSLog(@"TimeStamp :   %ld",unixTime * 1000);
     
-    NSLog(@"TimeStamp :   %ld",unixTime);
-    
-    [[NSUserDefaults standardUserDefaults] setDouble: unixTime forKey:@"dob"];
+    [[NSUserDefaults standardUserDefaults] setDouble: unixTime*1000 forKey:@"dob"];
     
     NSLog(@"Saving Value As :   %@",[[NSUserDefaults standardUserDefaults] objectForKey:@"dob"]);
    

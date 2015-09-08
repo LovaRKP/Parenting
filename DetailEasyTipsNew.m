@@ -397,7 +397,15 @@
                                     
                                     NSLog(@"myValue ==== %@",modifiedString);
                                     
-                                    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[modifiedString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+                                    
+                                    NSString *newString;
+                                    
+                                    newString =  [modifiedString stringByReplacingOccurrencesOfString: @"<br/>" withString:@""];
+                                    NSLog(@"newString === %@",newString);
+                                    
+
+                                    
+                                    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[newString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
                                     
                                     _textView.editable = NO;
                                     _textView.attributedText = attributedString;
@@ -416,11 +424,16 @@
                                                                                           withTemplate:@"$1280$2220$3"];
                                     
                                     
-                                    NSLog(@"myValue ==== %@",modifiedString);
+                                    NSString *newString;
+                                    
+                                    newString =  [modifiedString stringByReplacingOccurrencesOfString: @"<br/>" withString:@""];
+                                    NSLog(@"newString === %@",newString);
+                                    
+
 
                          
                                     
-                                    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[modifiedString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+                                    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[newString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
                                     
                                     _textView.editable = NO;
                                     _textView.attributedText = attributedString;

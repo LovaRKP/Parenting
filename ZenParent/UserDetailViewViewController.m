@@ -112,7 +112,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *params = @{@"email": _userEmail.text,
                              
-                             @"device_token": diviceTokenOr
+                             @"device_token": @"1234"
                              ,
                              @"device_type": @"ios"
                              ,
@@ -234,7 +234,7 @@
                                  @"last_name":_lastName.text,
                                  @"email": _userEmail.text,
                                  @"phone":  _phoneNoTf.text,
-                                 @"device_token": diviceTokenOr,
+                                 @"device_token": @"1234",
                                  @"device_type": @"ios",
                                  @"social_unique_id": _fbID ,
                                  @"login_by":_logINBy,

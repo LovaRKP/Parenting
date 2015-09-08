@@ -26,6 +26,6 @@
 #endif
 
 
-#ifndef NDEBUG
-#define NSLog(...);
-#endif
+//#ifndef NDEBUG
+//#define NSLog(...);
+//#endif

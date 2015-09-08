@@ -149,6 +149,7 @@
 		04FA4CE61B139B2A00E4E430 /* share@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04FA4CDC1B139B2A00E4E430 /* share@3x.png */; };
 		04FA4CEC1B139C7700E4E430 /* share@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 04FA4CEB1B139C7700E4E430 /* share@2x.png */; };
 		37D07036628C1F4A6D7F762C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FA44291B61EF6E8A02F8451C /* libPods.a */; };
+		D4DCEE301B9D516F001C93E3 /* GoogleWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = D4DCEE2F1B9D516F001C93E3 /* GoogleWeb.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -550,6 +551,8 @@
 		04FA4CDC1B139B2A00E4E430 /* share@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share@3x.png"; sourceTree = "<group>"; };
 		04FA4CEB1B139C7700E4E430 /* share@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "share@2x.png"; sourceTree = "<group>"; };
 		3FC42DDD4ED559EA09B80ED7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		D4DCEE2E1B9D516F001C93E3 /* GoogleWeb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleWeb.h; sourceTree = "<group>"; };
+		D4DCEE2F1B9D516F001C93E3 /* GoogleWeb.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleWeb.m; sourceTree = "<group>"; };
 		F7300CB1366DCD6849CD287B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		FA44291B61EF6E8A02F8451C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -612,6 +615,8 @@
 		0448708B1AEF3F9C001E2719 = {
 			isa = PBXGroup;
 			children = (
+				D4DCEE2E1B9D516F001C93E3 /* GoogleWeb.h */,
+				D4DCEE2F1B9D516F001C93E3 /* GoogleWeb.m */,
 				048CA2411B382970000801E3 /* constants.h */,
 				044870961AEF3F9C001E2719 /* ZenParent */,
 				044870B01AEF3F9C001E2719 /* ZenParentTests */,
@@ -1251,6 +1256,7 @@
 				045213981AF101AA00F6198F /* AFURLResponseSerialization.m in Sources */,
 				045213911AF101AA00F6198F /* AFHTTPRequestOperation.m in Sources */,
 				045F3D561B2E8D28003127FA /* NCTextView.m in Sources */,
+				D4DCEE301B9D516F001C93E3 /* GoogleWeb.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

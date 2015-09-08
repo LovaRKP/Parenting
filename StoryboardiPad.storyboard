@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="q86-7O-iXA">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="q86-7O-iXA">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -355,11 +355,11 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 min" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bL6-dc-qR2">
-                                                    <rect key="frame" x="86" y="380" width="53" height="19"/>
+                                                    <rect key="frame" x="83" y="380" width="60" height="19"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="53" id="ubS-ME-pdG"/>
+                                                        <constraint firstAttribute="width" constant="60" id="MYf-Ie-g6g"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -422,7 +422,6 @@
                                         <constraints>
                                             <constraint firstItem="qxh-h5-GhP" firstAttribute="top" secondItem="Mjb-s0-1Uc" secondAttribute="bottom" constant="38" id="0tt-KF-g7O"/>
                                             <constraint firstAttribute="bottomMargin" secondItem="XBv-xJ-5th" secondAttribute="bottom" constant="68" id="5ka-uI-cvS"/>
-                                            <constraint firstItem="XBv-xJ-5th" firstAttribute="leading" secondItem="bL6-dc-qR2" secondAttribute="trailing" constant="31" id="6Q7-WM-5dG"/>
                                             <constraint firstItem="aVp-I4-Tbe" firstAttribute="top" secondItem="2Di-dL-p2K" secondAttribute="bottom" constant="78" id="6Wd-r9-3zv"/>
                                             <constraint firstItem="1eU-tH-Lad" firstAttribute="leading" secondItem="Kt3-F6-Hke" secondAttribute="leadingMargin" constant="-1" id="73W-Np-XZA"/>
                                             <constraint firstItem="JqS-W0-FUG" firstAttribute="bottom" secondItem="XBv-xJ-5th" secondAttribute="bottom" id="9u9-6g-uRd"/>
@@ -436,14 +435,15 @@
                                             <constraint firstItem="2Di-dL-p2K" firstAttribute="top" secondItem="y2G-LQ-ida" secondAttribute="bottom" constant="3" id="GLa-Pp-lRI"/>
                                             <constraint firstItem="JqS-W0-FUG" firstAttribute="leading" secondItem="lvu-9I-HwL" secondAttribute="trailing" constant="12" id="Guc-yV-Taw"/>
                                             <constraint firstItem="y2G-LQ-ida" firstAttribute="centerX" secondItem="2Di-dL-p2K" secondAttribute="centerX" constant="-3" id="HOG-Lf-tdD"/>
-                                            <constraint firstItem="bL6-dc-qR2" firstAttribute="baseline" secondItem="Mjb-s0-1Uc" secondAttribute="baseline" id="HRv-DG-fse"/>
+                                            <constraint firstItem="LkC-Za-54a" firstAttribute="top" secondItem="bL6-dc-qR2" secondAttribute="bottom" constant="38" id="Hel-Hs-Vyb"/>
                                             <constraint firstItem="1Mb-mW-gCs" firstAttribute="bottom" secondItem="XBv-xJ-5th" secondAttribute="bottom" id="IMl-0H-PaF"/>
+                                            <constraint firstItem="bL6-dc-qR2" firstAttribute="leading" secondItem="1eU-tH-Lad" secondAttribute="trailing" constant="9" id="IcH-le-fPo"/>
                                             <constraint firstItem="1eU-tH-Lad" firstAttribute="baseline" secondItem="JqS-W0-FUG" secondAttribute="baseline" id="MNd-3A-1Pf"/>
                                             <constraint firstItem="1Mb-mW-gCs" firstAttribute="top" secondItem="2Di-dL-p2K" secondAttribute="bottom" constant="9" id="NDk-ds-Ae5"/>
                                             <constraint firstItem="2Di-dL-p2K" firstAttribute="centerX" secondItem="Kt3-F6-Hke" secondAttribute="centerX" id="Tan-k5-dso"/>
-                                            <constraint firstItem="LkC-Za-54a" firstAttribute="top" secondItem="bL6-dc-qR2" secondAttribute="bottom" constant="38" id="UAW-Bk-G7c"/>
                                             <constraint firstItem="TJf-fX-FGP" firstAttribute="centerX" secondItem="XBv-xJ-5th" secondAttribute="centerX" id="WfC-Z8-Bmd"/>
                                             <constraint firstItem="LkC-Za-54a" firstAttribute="bottom" secondItem="qxh-h5-GhP" secondAttribute="bottom" id="Wio-Wo-FUQ"/>
+                                            <constraint firstItem="bL6-dc-qR2" firstAttribute="top" secondItem="2Di-dL-p2K" secondAttribute="bottom" constant="21" id="Yhw-io-dWP"/>
                                             <constraint firstItem="2Di-dL-p2K" firstAttribute="leading" secondItem="F4h-e7-WHg" secondAttribute="leading" id="Yrd-76-udm"/>
                                             <constraint firstItem="y2G-LQ-ida" firstAttribute="leading" secondItem="Kt3-F6-Hke" secondAttribute="leadingMargin" constant="-6" id="ZIW-gv-JTr"/>
                                             <constraint firstItem="F4h-e7-WHg" firstAttribute="top" secondItem="Kt3-F6-Hke" secondAttribute="topMargin" id="a0D-S4-tS7"/>
@@ -459,8 +459,9 @@
                                             <constraint firstItem="LkC-Za-54a" firstAttribute="leading" secondItem="Kt3-F6-Hke" secondAttribute="leading" constant="99" id="jd8-Yh-Tmm"/>
                                             <constraint firstItem="y2G-LQ-ida" firstAttribute="top" secondItem="F4h-e7-WHg" secondAttribute="bottom" constant="8" symbolic="YES" id="kst-LP-Kxo"/>
                                             <constraint firstItem="XBv-xJ-5th" firstAttribute="leading" secondItem="FDa-X0-LR5" secondAttribute="trailing" constant="24" id="ll6-rT-nEl"/>
+                                            <constraint firstItem="bL6-dc-qR2" firstAttribute="baseline" secondItem="Mjb-s0-1Uc" secondAttribute="baseline" id="oh7-YF-9t8"/>
                                             <constraint firstItem="2Di-dL-p2K" firstAttribute="leading" secondItem="qxh-h5-GhP" secondAttribute="leading" constant="-10" id="pA7-3u-2Ca"/>
-                                            <constraint firstItem="bL6-dc-qR2" firstAttribute="leading" secondItem="1eU-tH-Lad" secondAttribute="trailing" constant="12" id="rAm-tu-BMr"/>
+                                            <constraint firstItem="XBv-xJ-5th" firstAttribute="leading" secondItem="bL6-dc-qR2" secondAttribute="trailing" constant="27" id="qnI-k1-6ai"/>
                                             <constraint firstItem="TJf-fX-FGP" firstAttribute="centerY" secondItem="XBv-xJ-5th" secondAttribute="centerY" id="sSK-7C-BUj"/>
                                             <constraint firstItem="XBv-xJ-5th" firstAttribute="leading" secondItem="JqS-W0-FUG" secondAttribute="trailing" constant="17" id="sf7-Y5-nwM"/>
                                             <constraint firstItem="Mjb-s0-1Uc" firstAttribute="top" secondItem="2Di-dL-p2K" secondAttribute="bottom" constant="19" id="sis-2l-kGX"/>
@@ -1471,7 +1472,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="uP6-Z5-1je" kind="show" id="5ew-r9-l53"/>
+                        <segue destination="uP6-Z5-1je" kind="show" identifier="root" id="5ew-r9-l53"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Byo-nB-Mtp" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1602,7 +1603,7 @@
                                                     <state key="normal" backgroundImage="bookmarkNew@2x.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <state key="highlighted" backgroundImage="61B0C934-974B-4F78-BE2C-3C001F73D50B"/>
+                                                    <state key="highlighted" backgroundImage="10D4B012-838E-4A93-80B4-5F2A43D41F8E"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Jackfruit - Music Fest For And By Children" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="482" translatesAutoresizingMaskIntoConstraints="NO" id="4Li-Uc-P7p">
                                                     <rect key="frame" x="102" y="33" width="482" height="54"/>
@@ -2337,7 +2338,7 @@
                                                     <state key="normal" backgroundImage="bookmarkNew@2x.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <state key="highlighted" backgroundImage="EEE0B92B-EFA8-4210-BC62-C6A63F409845"/>
+                                                    <state key="highlighted" backgroundImage="026900EC-207A-4C81-8278-87594BCC8560"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Jackfruit - Music Fest For And By Children" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="3gx-3P-Zwt">
                                                     <rect key="frame" x="102" y="33" width="482" height="54"/>
@@ -3630,7 +3631,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone No:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vHw-hg-gKW">
                                         <rect key="frame" x="15" y="871" width="101" height="21"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n5e-jx-CZy">
@@ -3639,7 +3640,7 @@
                                             <constraint firstAttribute="width" constant="269" id="hiJ-Az-L2q"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="MRL Convention Center, 7th Phase J.PNager" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JqR-61-hfG">
@@ -3932,7 +3933,7 @@
                                                     <state key="normal" backgroundImage="bookmarkNew@2x.png">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
-                                                    <state key="highlighted" backgroundImage="055126B0-F1CE-4AD6-896C-ED90A3F24451"/>
+                                                    <state key="highlighted" backgroundImage="4413588B-9DB5-400F-8157-646E74B868A0"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Jackfruit - Music Fest For And By Children" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="3hy-sY-WTW">
                                                     <rect key="frame" x="102" y="33" width="482" height="54"/>
@@ -4932,7 +4933,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="055126B0-F1CE-4AD6-896C-ED90A3F24451" width="301" height="301">
+        <image name="026900EC-207A-4C81-8278-87594BCC8560" width="301" height="301">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMU
 GR4fJSYsLzU4VSRudWxs1QkKCwwNDg8QERJWTlNTaXplViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBz
@@ -4948,7 +4949,7 @@ AZIBmgGdAaQBrAG5Ab4BwAHCAccBzwHSAdcB3wHiAfQB9wH8AAAAAAAAAgEAAAAAAAAAPwAAAAAAAAAA
 AAAAAAAAAf4
 </mutableData>
         </image>
-        <image name="61B0C934-974B-4F78-BE2C-3C001F73D50B" width="301" height="301">
+        <image name="10D4B012-838E-4A93-80B4-5F2A43D41F8E" width="301" height="301">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMU
 GR4fJSYsLzU4VSRudWxs1QkKCwwNDg8QERJWTlNTaXplViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBz
@@ -4964,7 +4965,7 @@ AZIBmgGdAaQBrAG5Ab4BwAHCAccBzwHSAdcB3wHiAfQB9wH8AAAAAAAAAgEAAAAAAAAAPwAAAAAAAAAA
 AAAAAAAAAf4
 </mutableData>
         </image>
-        <image name="EEE0B92B-EFA8-4210-BC62-C6A63F409845" width="301" height="301">
+        <image name="4413588B-9DB5-400F-8157-646E74B868A0" width="301" height="301">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOzxYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBMU
 GR4fJSYsLzU4VSRudWxs1QkKCwwNDg8QERJWTlNTaXplViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBz

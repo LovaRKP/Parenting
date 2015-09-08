@@ -121,6 +121,10 @@
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
     
+ 
+
+    
+    
     [self connected];
     
     //pushNotification
@@ -180,6 +184,10 @@
 }
 
 
+
+
+
+
 // Autorotation ipad
 
 - (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
@@ -231,6 +239,11 @@
     //zenparent.in/api/single_article?params..?deep_link=1
     //respose = single_post_object ...post_id,post_type,post_title,pso
     
+  
+
+    
+    
+    
     NSLog( @"url for Api:===== %@",url);
     
     NSString *yourString = [url absoluteString];
@@ -262,6 +275,9 @@
     return YES;
     
 }
+
+
+
 
 
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings NS_AVAILABLE_IOS(8_0){

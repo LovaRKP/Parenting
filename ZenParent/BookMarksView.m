@@ -94,9 +94,7 @@ static NSString *CellIdentifier5 = @"parenting";
                                   instantiateViewControllerWithIdentifier:@"ViewContr"];
             
             [self.navigationController pushViewController:wc animated:YES];
-            
-            
-            
+   
         }];
         [alertController addAction:settings];
         [alertController addAction:cancel];
@@ -190,9 +188,22 @@ static NSString *CellIdentifier5 = @"parenting";
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    NSString *savedValue = [[NSUserDefaults standardUserDefaults]
+                            
+                            stringForKey:@"PartiallyRegistered"];
     
+    NSLog(@"savedValue == %@",savedValue);
     
-    [self FeatchData];
+    if ([savedValue isEqualToString:@"1"])
+        
+    {
+  
+
+    }else {
+        
+     [self FeatchData];
+    
+    }
     
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"LanguageSettings"]) {
         
@@ -2042,6 +2053,9 @@ static NSString *CellIdentifier5 = @"parenting";
                  NSLog(@"oldArray======%@",myArray);
                  
                  self.myArray = [[myArray arrayByAddingObjectsFromArray:newArray] mutableCopy];
+                 
+                 NSOrderedSet *mySet = [[NSOrderedSet alloc] initWithArray:myArray];
+                 myArray = [[NSMutableArray alloc] initWithArray:[mySet array]];
                  
                  NSLog(@"ADDArray ====%@",myArray);
                  
