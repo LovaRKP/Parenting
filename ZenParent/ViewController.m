@@ -242,7 +242,7 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     
     // NSURL *googleUrl = note.object;
     
-    [activityIndicatorView startAnimating];
+   
     
     UIWebView *webview=[[UIWebView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
     // NSURL *pass = [[note userInfo] valueForKey:@"url"];
@@ -255,7 +255,10 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     [webview setDelegate:self];
     [webview loadRequest:nsrequest];
     [self.view addSubview:webview];
-    webview.delegate = self;
+    
+    [webview addSubview:activityIndicatorView];
+     [activityIndicatorView startAnimating];
+     webview.delegate = self;
     
 }
 
@@ -409,12 +412,14 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    
+    
     if ([[[request URL] absoluteString] hasPrefix:@"in.zenparent:/oauth2callback"]) {
         [GPPURLHandler handleURL:request.URL sourceApplication:@"com.apple.mobilesafari" annotation:nil];
         // [self.navigationController popViewControllerAnimated:YES];
-        
-        
+ 
         [webView removeFromSuperview];
+   
         
         return NO;
     }
@@ -422,7 +427,12 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
 }
 
 
-
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:(BOOL)animated];    // Call the super class implementation.
+    // Usually calling super class implementation is done before self class implementation, but it's up to your application.
+    
+    [activityIndicatorView stopAnimating];
+}
 
 
 
@@ -450,7 +460,7 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *params = @{@"email": userEmailForFB,
                              
-                             @"device_token": @"1234"
+                             @"device_token": diviceTokenOr
                              ,
                              @"device_type": @"ios"
                              ,

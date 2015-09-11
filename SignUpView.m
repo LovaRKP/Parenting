@@ -311,12 +311,11 @@
     
     NSString *diviceTokenOr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
     NSLog(@"LOGINUSERID  =====%@",diviceTokenOr);
-    
-    
+ 
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *params = @{
                              
-                             @"device_token":@"1238787"
+                             @"device_token":diviceTokenOr
                              
                              };
     manager.responseSerializer = [AFJSONResponseSerializer serializer]; // if response JSON format
@@ -340,10 +339,8 @@
             
             NSString *UserIdForParUser = parUserId;
             NSLog(@"value2 ====== %@",UserIdForParUser);
-            
-            NSString *deviceTokenForMe = @"123450784748hfhfh447"; //LoginApi
-            
-            [[NSUserDefaults standardUserDefaults] setObject:deviceTokenForMe forKey:@"REG_TOKEN"];
+  
+            [[NSUserDefaults standardUserDefaults] setObject:diviceTokenOr forKey:@"REG_TOKEN"];
             
             [[NSUserDefaults standardUserDefaults] setObject:UserIdForParUser forKey:@"REG_userId"];
             

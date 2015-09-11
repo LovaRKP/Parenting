@@ -386,7 +386,7 @@
 
                                 _textView.attributedText = attributedString;
                                 _textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.0f];
-                                _textView.textContainerInset = UIEdgeInsetsMake(0, 20, 0, 20);
+                                _textView.textContainerInset = UIEdgeInsetsMake(0, 10, 0, 10);
                                 
                                 _textView.editable = NO;
                                 

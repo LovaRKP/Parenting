@@ -16,16 +16,15 @@
 #import "CDActivityIndicatorView.h"
 #import "GAITrackedViewController.h"
 
-
-
-
 #define IS_IPHONE (!IS_IPAD)
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPhone)
 
 
 #endif
 
+// Uncomment This For Logs
 
-//#ifndef NDEBUG
-//#define NSLog(...);
-//#endif
+
+#ifndef NDEBUG
+#define NSLog(...);
+#endif
