@@ -1,3 +1,4 @@
+
 //
 //  SignUpView.m
 //  ZenParent
@@ -34,14 +35,11 @@
     //Tokens
     NSString *loginDeviceId;
     NSString *loginTocken;
-    
     NSString *registerDeviceId;
     NSString *registerTocken;
     NSString *reguserId;
-    
     NSString *userImageURL;
     NSString *userLogInBy;
-    
     CDActivityIndicatorView * activityIndicatorView ;
     
 }
@@ -303,7 +301,6 @@
 }
 - (IBAction)continueAsGuestPressed:(id)sender {
     
-    
     // DO the Guest Logic Here
     
     NSLog(@"working......");
@@ -311,7 +308,23 @@
     
     NSString *diviceTokenOr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
     NSLog(@"LOGINUSERID  =====%@",diviceTokenOr);
- 
+    
+    // Simulater detetction
+    
+#if TARGET_IPHONE_SIMULATOR
+    
+    //Simulator
+    
+    diviceTokenOr = @"bfdhsglhjsldshlhdjsgh4ou7982urejhfy4hhbdkhfjkdshfjhw89dsfsfdjdfbjkdshfuew";
+    
+    NSLog(@"device tocken don");
+    
+#else
+    
+    // Device
+    
+#endif
+    
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     NSDictionary *params = @{
                              
@@ -326,23 +339,33 @@
         NSString * isPartiallyRegistered = [responseObject objectForKey:@"is_partially_registered"];
         
         NSString *parUserId = [responseObject objectForKey:@"id"];
-        
+        NSString *userTockenVlue = [responseObject objectForKey:@"token"];
         NSLog(@"is_partially_registered ====== %@",isPartiallyRegistered);
+        
+        [[NSUserDefaults standardUserDefaults] setObject:isPartiallyRegistered forKey:@"PartiallyRegistered"];
+        
+        [[NSUserDefaults standardUserDefaults] synchronize];
         
         if ([isPartiallyRegistered isEqualToString:@"1"]) {
             
             NSLog(@"isPartiallyRegistered .............");
             
-            [[NSUserDefaults standardUserDefaults] setObject:isPartiallyRegistered forKey:@"PartiallyRegistered"];
-            
-            [[NSUserDefaults standardUserDefaults] synchronize];
             
             NSString *UserIdForParUser = parUserId;
             NSLog(@"value2 ====== %@",UserIdForParUser);
-  
-            [[NSUserDefaults standardUserDefaults] setObject:diviceTokenOr forKey:@"REG_TOKEN"];
+            
+            if (userTockenVlue == (id)[NSNull null] || userTockenVlue.length == 0 ){
+                
+                userTockenVlue = @"dghlgfkhgdfkhgbjkadhdjkhkjhkf";
+                
+            }
+            
+            [[NSUserDefaults standardUserDefaults] setObject:userTockenVlue forKey:@"REG_TOKEN"];
+            
             
             [[NSUserDefaults standardUserDefaults] setObject:UserIdForParUser forKey:@"REG_userId"];
+            
+            NSLog(@"user id ===%@", [[NSUserDefaults standardUserDefaults ]objectForKey:@"REG_TOKEN"]);
             
             [[NSUserDefaults standardUserDefaults] setObject:@"English" forKey:@"LanguageDefalt"];
             
@@ -361,6 +384,19 @@
             
             NSLog(@"NormalUser .............");
             
+            // collecting user id and tocken;
+            
+            NSString *parUserId = [responseObject objectForKey:@"id"];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:userTockenVlue forKey:@"REG_TOKEN"];
+            
+            
+            [[NSUserDefaults standardUserDefaults] setObject:parUserId forKey:@"REG_userId"];
+            
+            [[NSUserDefaults standardUserDefaults] setObject:@"English" forKey:@"LanguageDefalt"];
+            
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            
             NSString *valueToSave = @"0";
             [[NSUserDefaults standardUserDefaults] setObject:valueToSave forKey:@"PartiallyRegistered"];
             [[NSUserDefaults standardUserDefaults] synchronize];
@@ -372,7 +408,6 @@
                                       instantiateViewControllerWithIdentifier:@"HOMEIOS"];
             
             [self.navigationController pushViewController:wc animated:YES];
-            
             
         }
         

@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>in.zenparent</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -22,10 +22,10 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>zenparent.in</string>
+			<string>in.zenparent</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>zenparent.ios</string>
+				<string>in.zenparent</string>
 			</array>
 		</dict>
 		<dict>
@@ -51,7 +51,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.07</string>
+	<string>1.08</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -72,6 +72,11 @@
 	<string>ZenParent</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>ZenParent would like to use your location.</string>
 	<key>NSPrincipalClass</key>

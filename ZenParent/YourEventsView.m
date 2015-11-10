@@ -138,6 +138,7 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     
+    
     static NSString *CellIdentifier = @"events";
     
     YourEventCellCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
@@ -163,7 +164,7 @@
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
     
     NSString *currentDateString = date;
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     NSDate *currentDate = [dateFormatter dateFromString:currentDateString];
     NSLog(@"CurrentDate:%@", currentDate);
     NSDateFormatter *currentDTFormatter = [[NSDateFormatter alloc] init];
@@ -191,7 +192,6 @@
         cell.pleaceLeabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:13.0];
         
     }
-    
     
     
     

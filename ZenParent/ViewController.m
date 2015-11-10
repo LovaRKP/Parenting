@@ -35,18 +35,12 @@
     //Tokens
     NSString *loginDeviceId;
     NSString *loginTocken;
-    
     NSString *registerDeviceId;
     NSString *registerTocken;
     NSString *reguserId;
-    
     NSString *userImageURL;
     NSString *userLogInBy;
-    
-    
-    
     NSString  *accessTocken;
-    
     
     CDActivityIndicatorView * activityIndicatorView ;
     
@@ -59,7 +53,11 @@
 @synthesize signInButton ;
 
 
-static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9s32.apps.googleusercontent.com";
+// old one 202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9s32.apps.googleusercontent.com
+
+//  new id  579056634272-7lu3hclbl8fgnaprplug65jv6fop1bkb.apps.googleusercontent.com
+
+static NSString * const kClientID = @"579056634272-7lu3hclbl8fgnaprplug65jv6fop1bkb.apps.googleusercontent.com";
 
 - (void)viewDidLoad {
     
@@ -139,7 +137,6 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     {
         NSLog(@"user is Already login");
         
-        
         [activityIndicatorView startAnimating];
         
     }
@@ -154,6 +151,7 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     [signIn trySilentAuthentication];
     
 }
+
 
 -(void) viewWillAppear:(BOOL)animated{
     
@@ -214,9 +212,6 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     
     accessTocken = [NSString stringWithFormat:@"%@",[[FBSession activeSession] accessTokenData]];
     
-    
-    
-    
     NSLog(@"%@",[[FBSession activeSession] accessTokenData]);
     
     if (user == nil) {
@@ -241,24 +236,21 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     NSLog(@"Received Notification - Someone seems to have logged in%@", note);
     
     // NSURL *googleUrl = note.object;
-    
-   
-    
-    UIWebView *webview=[[UIWebView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
+    UIWebView *webview = [[UIWebView alloc] initWithFrame:CGRectMake(0, 55, self.view.bounds.size.width,self.view.bounds.size.height-55)];
     // NSURL *pass = [[note userInfo] valueForKey:@"url"];
     // NSURL *nsurl=[NSURL URLWithString:url];
     NSURL *pass = note.object;
     NSURLRequest *nsrequest=[NSURLRequest requestWithURL:pass];
     webview.backgroundColor = [UIColor whiteColor];
-    webview.frame=CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-
+    // webview.frame=CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    
     [webview setDelegate:self];
     [webview loadRequest:nsrequest];
     [self.view addSubview:webview];
     
     [webview addSubview:activityIndicatorView];
-     [activityIndicatorView startAnimating];
-     webview.delegate = self;
+    [activityIndicatorView startAnimating];
+    webview.delegate = self;
     
 }
 
@@ -339,7 +331,7 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     
     //id_token = [NSString stringWithFormat:@"%@",[[[[GPPSignIn sharedInstance] authentication] parameters] objectForKey:@"id_token"]];
     
-    
+    [activityIndicatorView startAnimating];
     
     NSLog(@"id_token ========%@",accessTocken);
     
@@ -366,8 +358,6 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     userLogInBy = @"google";
     
     NSLog(@"googleUserInfermation = %@",googleUserInfermation);
-    
-    
     
     
     // NSMutableDictionary *proDic = [[NSMutableDictionary alloc] init];
@@ -417,9 +407,9 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     if ([[[request URL] absoluteString] hasPrefix:@"in.zenparent:/oauth2callback"]) {
         [GPPURLHandler handleURL:request.URL sourceApplication:@"com.apple.mobilesafari" annotation:nil];
         // [self.navigationController popViewControllerAnimated:YES];
- 
+        
         [webView removeFromSuperview];
-   
+        // [activityIndicatorView startAnimating];
         
         return NO;
     }
@@ -454,6 +444,18 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
     // LogIn Api
     NSString *diviceTokenOr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
     NSLog(@"LOGINUSERID  =====%@",diviceTokenOr);
+    
+    
+    
+#if TARGET_IPHONE_SIMULATOR
+    
+    diviceTokenOr = @"bfdhsglhjsg/ldshlhdjsgh4ou7982urejhfy4hhbdkhfjkdshfjhw89jdfbjkdshfuew";
+    
+#else
+    
+    // Device
+    
+#endif
     
     
     
@@ -625,9 +627,7 @@ static NSString * const kClientID = @"202051062523-hjqmv3nb9sbfq6spdgf5rto6ohnt9
                 
                 HOMEViewController *wc = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
                                           instantiateViewControllerWithIdentifier:@"HOMEIOS"];
-                
                 [self.navigationController pushViewController:wc animated:YES];
-                
                 
             }
             

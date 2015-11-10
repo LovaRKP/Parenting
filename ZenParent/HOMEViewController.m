@@ -24,6 +24,9 @@
 #import "SampleDetail.h"
 #import "SignUpView.h"
 
+#import "WebViewController.h"
+#import "Web2ViewController.h"
+
 #define IS_IPHONE (!IS_IPAD)
 #define IS_IPAD (UI_USER_INTERFACE_IDIOM() != UIUserInterfaceIdiomPhone)
 
@@ -31,7 +34,7 @@
 
 
 
-@interface HOMEViewController () <NKJPagerViewDataSource,NKJPagerViewDelegate,UIActionSheetDelegate>
+@interface HOMEViewController () <NKJPagerViewDataSource,NKJPagerViewDelegate,UIActionSheetDelegate,UIWebViewDelegate>
 
 @end
 
@@ -736,12 +739,25 @@
                     
                     break;
                 case 1:
+                {
                     NSLog(@"ZenParent WEbsite");
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://zenparent.in/"]];
+                    WebViewController *wcWeb = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
+                                                instantiateViewControllerWithIdentifier:@"WeBView"];
+                    
+                    [self.navigationController pushViewController:wcWeb animated:YES];
+                }
+
                     break;
                 case 2:
                     NSLog(@"About US");
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://zenparent.in/about-us/"]];
+                {
+                    
+                    Web2ViewController *wcWeb = [[UIStoryboard storyboardWithName:@"Main" bundle:nil]
+                                                 instantiateViewControllerWithIdentifier:@"Web2View"];
+                    
+                    [self.navigationController pushViewController:wcWeb animated:YES];
+                }
+
                     break;
                 case 3:
                     NSLog(@"Logout");

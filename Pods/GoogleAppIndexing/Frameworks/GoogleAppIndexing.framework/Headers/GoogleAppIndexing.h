@@ -6,4 +6,6 @@
 //
 
 // Google App Indexing SDK
+#import <GoogleAppIndexing/GSDAppIndexing.h>
 #import <GoogleAppIndexing/GSDDeepLink.h>
+

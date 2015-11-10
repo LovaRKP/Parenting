@@ -1025,45 +1025,36 @@
     selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     
+    // Sample
     
-    [[self.myTabBar.items objectAtIndex:0] setFinishedSelectedImage:selectedImage withFinishedUnselectedImage:unselectedImage];
+    [[self.myTabBar.items objectAtIndex:0] setImage:unselectedImage];
     
     [[self.myTabBar.items objectAtIndex:0] setImageInsets:UIEdgeInsetsMake(5, 0, -5, 0)];
-    
-    
-    
     
     unselectedImage = [UIImage imageNamed:@"twitter_icon"];
     
     selectedImage = [UIImage imageNamed:@"twitter_icon"];
     
-    
-    
     unselectedImage = [unselectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    
-    [[self.myTabBar.items objectAtIndex:1] setFinishedSelectedImage:selectedImage withFinishedUnselectedImage:unselectedImage];
+    [[self.myTabBar.items objectAtIndex:1] setImage:unselectedImage];
     
     [[self.myTabBar.items objectAtIndex:1] setImageInsets:UIEdgeInsetsMake(5, 0, -5, 0)];
-    
     
     unselectedImage = [UIImage imageNamed:@"whatsapp_icon"];
     
     selectedImage = [UIImage imageNamed:@"whatsapp_icon"];
     
-    
     unselectedImage = [unselectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    
-    
-    [[self.myTabBar.items objectAtIndex:2] setFinishedSelectedImage:selectedImage withFinishedUnselectedImage:unselectedImage];
+    [[self.myTabBar.items objectAtIndex:2] setImage:unselectedImage];
     
     [[self.myTabBar.items objectAtIndex:2] setImageInsets:UIEdgeInsetsMake(5, 0, -5, 0)];
-    
+
     
 }
 

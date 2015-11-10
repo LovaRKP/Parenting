@@ -1,10 +1,10 @@
 PODS:
-  - GoogleAppIndexing (1.0.1)
+  - GoogleAppIndexing (2.0.1)
 
 DEPENDENCIES:
   - GoogleAppIndexing
 
 SPEC CHECKSUMS:
-  GoogleAppIndexing: 776935d1d0b1227fbe2d4165c86b275e8a1ff517
+  GoogleAppIndexing: aa25aeb2eed109032529e88f99fd3f512cdfc685
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0

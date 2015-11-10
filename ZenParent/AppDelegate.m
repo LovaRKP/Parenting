@@ -35,18 +35,15 @@
 #define GA_TRACKING_ID @"UA-64993437-1"
 
 
-#import "IMBanner.h"
-#import "IMBannerDelegate.h"
+#import "IMSdk.h"
+#import "IMCommonConstants.h"
+#import "IMSdk.h"
+#import "IMNative.h"
+#import "IMCustomNative.h"
 #import "IMInterstitial.h"
 #import "IMInterstitialDelegate.h"
-#import "IMIncentivisedDelegate.h"
-#import "IMNative.h"
 #import "IMNativeDelegate.h"
-#import "IMError.h"
-#import "InMobiAnalytics.h"
-#import "InMobi.h"
-#import "IMConstants.h"
-
+#import "IMRequestStatus.h"
 
 
 #import "HomeContantView.h"
@@ -100,9 +97,9 @@
     
     //Initialize InMobi SDK with your property-ID
     
-    [InMobi initialize:@"957c6e9e07384acba8f99d4fa35545fd"];   //957c6e9e07384acba8f99d4fa35545fd
+   [IMSdk initWithAccountID:@"957c6e9e07384acba8f99d4fa35545fd"];   //957c6e9e07384acba8f99d4fa35545fd
     
-    [InMobi setLogLevel:IMLogLevelDebug];
+  
     
     
     // Do your stuff.
@@ -142,12 +139,12 @@
     }
     else
     {
-        
-        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-         UIRemoteNotificationTypeAlert |
-         UIRemoteNotificationTypeBadge |
-         UIRemoteNotificationTypeSound];
-        
+//        
+//        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+//         UIRemoteNotificationTypeAlert |
+//         UIRemoteNotificationTypeBadge |
+//         UIRemoteNotificationTypeSound];
+//        
     }
     
     
@@ -190,10 +187,18 @@
 
 // Autorotation ipad
 
-- (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+#if __IPHONE_OS_VERSION_MAX_ALLOWED < 90000
+
+- (NSInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
 {
     return UIInterfaceOrientationMaskPortrait;
 }
+#else
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+#endif
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

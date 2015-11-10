@@ -15,14 +15,11 @@
 #import "HOMEViewController.h"
 
 
-
-
 @interface UserDetailViewViewController () <FBLoginViewDelegate ,UITextFieldDelegate >
 {
     
     NSString *loginDeviceId;
     NSString *loginTocken;
-    
     NSString *registerDeviceId;
     NSString *registerTocken;
     NSString *reguserId;
@@ -38,7 +35,7 @@
 
 - (void)viewDidLoad {
     
-        self.screenName = @"User Details Screen";
+    self.screenName = @"User Details Screen";
     
     [super viewDidLoad];
     [_phoneNoTf setDelegate:self];
@@ -106,6 +103,18 @@
     NSString *diviceTokenOr = [[NSUserDefaults standardUserDefaults]objectForKey:@"deviceToken"];
     
     NSLog(@"LOGINUSERID USERDEtail  =====%@",diviceTokenOr);
+    
+#if TARGET_IPHONE_SIMULATOR
+    
+    //Simulator
+    diviceTokenOr = @"bfdhsglhjsg/ldshlhdjsgh4ou7982urejhfy4hhbdkhfjkdshfjhw89jdfbjkdshfuew";
+    
+    
+#else
+    
+    // Device
+    
+#endif
     
     NSLog(@"loginby....................%@",_logINBy);
     
@@ -226,6 +235,16 @@
     
     NSLog(@"REGISTERUSERID USERDEtail  =====%@",diviceTokenOr);
     
+#if TARGET_IPHONE_SIMULATOR
+    
+    //Simulator
+    diviceTokenOr = @"bfdhsglhjsg/ldshlhdjsgh4ou7982urejhfy4hhbdkhfjkdshfjhw89jdfbjkdshfuew";
+    
+#else
+    
+    // Device
+    
+#endif
     
     NSLog(@"loginby....................%@",_logINBy);
     

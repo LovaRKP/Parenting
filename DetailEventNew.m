@@ -543,290 +543,290 @@
                  [self.navigationController pushViewController:wc animated:YES];
                  
              }else {
-             
-             
-             myArray = [responseObject objectForKey: @"result"];
-             NSLog(@"arrayCount======%@",myArray);
-             
-             
-             dispatch_async(dispatch_get_main_queue(), ^
-                            {
-                                
-                                
-                                NSString *imageUrl = [myArray objectForKey:@"image"];
-                                
-                                NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:imageUrl]
-                                                                              cachePolicy:NSURLRequestReturnCacheDataElseLoad
-                                                                          timeoutInterval:60];
-                                
-                                [_DetailImage setImageWithURLRequest:imageRequest
-                                                    placeholderImage:[UIImage imageNamed:@"placeholder"]
-                                                             success:nil
-                                                             failure:nil];
-                                
-                                
-                                // Dates
-                                
-                                
-                                NSString *title = [myArray objectForKey:@"title"];
-                                
-                                NSString *date = [myArray objectForKey:@"start_date"];
-                                //  NSString *enddate = [myArray objectForKey:@"updated_at"];
-                                
-                                NSLog(@"Date====%@",date);
-                                
-                                
-                                NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
-                                
-                                NSString *currentDateString = date;
-                                [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
-                                NSDate *currentDate = [dateFormatter dateFromString:currentDateString];
-                                NSLog(@"CurrentDate:%@", currentDate);
-                                NSDateFormatter *currentDTFormatter = [[NSDateFormatter alloc] init];
-                                [currentDTFormatter setDateFormat:@"dd"];
-                                
-                                NSString *eventDateStr = [currentDTFormatter stringFromDate:currentDate];
-                                NSLog(@"Date===%@", eventDateStr);
-                                [currentDTFormatter setDateFormat:@"MMM"];
-                                NSString *eventDateStr1 = [currentDTFormatter stringFromDate:currentDate];
-                                NSLog(@"month===%@", eventDateStr1);
-                                
-                                //   NSString *time = [myArray objectForKey:@"updated_at"];
-                                
-                                NSString *ageGroup = [myArray objectForKey:@"age_group"];
-                                
-                                NSLog(@"myAge ===%@",ageGroup);
-                                
-                                NSString *notAva = [myArray objectForKey:@"cost"];
-                                NSString *PriceOfEvent = [myArray objectForKey:@"cost"];
-                                if ([notAva isEqualToString:@"Not Available"]) {
-                                    
-                                    PriceOfEvent = @"0";
-                                    
-                                }else {
-                                    
-                                    PriceOfEvent = [myArray objectForKey:@"cost"];
-                                    
-                                }
-                                
-                                _bodderAgeGroups.layer.cornerRadius = 8;
-                                _bodderAgeGroups.layer.borderWidth = 1;
-                                _bodderAgeGroups.layer.borderColor = [UIColor blackColor].CGColor;
-                                
-                                _bodderLeabelFordate.layer.cornerRadius = 8;
-                                _bodderLeabelFordate.layer.borderWidth = 1;
-                                _bodderLeabelFordate.layer.borderColor = [UIColor blackColor].CGColor;
-                                
-                                _bodderOnWords.layer.cornerRadius = 8;
-                                _bodderOnWords.layer.borderWidth = 1;
-                                _bodderOnWords.layer.borderColor = [UIColor blackColor].CGColor;
-                                
-                                _bodderPriceLabel.layer.cornerRadius = 8;
-                                _bodderPriceLabel.layer.borderWidth = 1;
-                                _bodderPriceLabel.layer.borderColor = [UIColor blackColor].CGColor;
-                                
-                                
-                                
-                                _titleTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
-                                _titleTextLabel.numberOfLines = 0;
-                                _titleTextLabel.text = title;
-                                
-                                
-                                _dateLeabel.text = eventDateStr;
-                                _monthInWOrdsLeabel.text = eventDateStr1;
-                                // cell2.timeLeabel.text = time;
-                                
-                                _ageGroups.text = ageGroup;
-                                _priceOfEventLeabel.text = [NSString stringWithFormat:@"Rs. %@",PriceOfEvent];
-                                _ageLeablelNew.text = ageGroup;
-                                
-                                
-                                
-                                // Dates cell
-                                
-                                NSString *dateStart = [myArray objectForKey:@"start_date"];
-                                NSString *dateOfend = [myArray objectForKey:@"end_date"];
-                                
-                                // NSString *timeOfevents = [myArray objectForKey:@"cost"];
-                                
-                                NSLog(@"dateStart====%@",dateStart);
-                                NSLog(@"dateEnd====%@",dateOfend);
-                                
-                                NSDateFormatter *dateFormatter1=[[NSDateFormatter alloc]init];
-                                
-                                NSString *currentDateString1 = dateStart;
-                                [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
-                                NSDate *currentDate1 = [dateFormatter dateFromString:currentDateString1];
-                                NSLog(@"CurrentDate:%@", currentDate1);
-                                NSDateFormatter *currentDTFormatter2 = [[NSDateFormatter alloc] init];
-                                [currentDTFormatter2 setDateFormat:@"dd"];
-                                NSString *eventDateStr2 = [currentDTFormatter2 stringFromDate:currentDate];
-                                NSLog(@"Date===%@", eventDateStr2);
-                                
-                                dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-                                NSDate *yourDate2 = [dateFormatter dateFromString:currentDateString];
-                                dateFormatter.dateFormat = @"HH:mm";
-                                NSLog(@"ooooooo     ====%@",[dateFormatter stringFromDate:yourDate2]);
-                                NSString *startingTime = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:yourDate2]];
-                                
-                                NSString *myString1 = dateOfend;
-                                
-                                NSLog(@"value ==== %@",myString1);
-                                
-                                
-                                NSDateFormatter* dateFormatter2 = [[NSDateFormatter alloc] init];
-                                dateFormatter2.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-                                NSDate *yourDate = [dateFormatter2 dateFromString:myString1];
-                                dateFormatter2.dateFormat = @"dd-MMM-yyyy";
-                                
-                                NSString *endibgDate = [dateFormatter2 stringFromDate:yourDate];
-                                NSLog(@"%@",[dateFormatter2 stringFromDate:yourDate]);
-                                
-                                dateFormatter1.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-                                NSDate *yourDate1 = [dateFormatter1 dateFromString:myString1];
-                                dateFormatter.dateFormat = @"HH:mm";
-                                
-                                NSLog(@"hdshjshdj     ====%@",[dateFormatter stringFromDate:yourDate1]);
-                                
-                                NSString *endingTime = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:yourDate1]];
-                                
-                                
-                                
-                                
-                                NSLog(@"gjshgdjg ==    %@-%@",eventDateStr,endibgDate);
-                                
-                                
-                                NSString *finalDate = [NSString stringWithFormat:@"%@ - %@",eventDateStr,endibgDate];
-                                
-                                _dateOfEvents.text = finalDate;
-                                
-                                _timeOfEvents.text = [NSString stringWithFormat:@"%@ - %@",startingTime,endingTime];
-                                
-                                
-                                _timeLeabel.text = [NSString stringWithFormat:@"%@",startingTime];
-                                NSString *Price = [myArray objectForKey:@"cost"];
-                                _priceOfEventsWIthDate.text = [NSString stringWithFormat:@"Rs.%@",Price];
-                                
-                                
-                                NSLog(@"%@",Price);
-                                
-                                
-                                // Phone NO clicked
-                                
-                                UITapGestureRecognizer* gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userTappedOnLink:)];
-                                // if labelView is not set userInteractionEnabled, you must do so
-                                [_phoneNotextField setUserInteractionEnabled:YES];
-                                [_phoneNotextField addGestureRecognizer:gesture];
-                                
-                                _phoneNotextField.text = [myArray objectForKey:@"contact2"];
-                                
-                                _phoneNotextField.textColor = [UIColor blueColor];
-                                
-                                if ([[myArray objectForKey:@"contact2"] isEqualToString:@""]) {
-                                    
-                                    _phoneNotextField.text = @"Not Mentioned.";
-                                    
-                                }
-                                
-                                // About
-                                
-                                
-                                NSString *abouttext = [myArray objectForKey:@"article_content"];
-                                
-                                
-                                NSString *newString;
-                                
-                                newString =  [abouttext stringByReplacingOccurrencesOfString: @"<br/>" withString:@""];
-                                NSLog(@"newString === %@",newString);
-                                
-                               // NSString *htmlString = abouttext;
-                                
-                                NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[newString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
-                                _textView.attributedText = attributedString;
-                                
-                                
-                                if (IS_IPAD)
+                 
+                 
+                 myArray = [responseObject objectForKey: @"result"];
+                 NSLog(@"arrayCount======%@",myArray);
+                 
+                 
+                 dispatch_async(dispatch_get_main_queue(), ^
                                 {
-                                    _textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0f];
-                                    _textView.textContainerInset = UIEdgeInsetsMake(0, 40, 0, 40);
-                                    
-                                } else {
-                                    
-                                    _textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.0f];
-                                    _textView.textContainerInset = UIEdgeInsetsMake(0, 20, 0, 20);
-                             
-                                }
-                    
-                                _textView.editable = NO;
-                          
-                                //MapView
-                                
-                                venuDetails = [myArray objectForKey:@"venue"];
-                                
-                                _venuOrLocation.text = venuDetails;
-                                
-                                
-                                Latitude = [myArray objectForKey:@"latitude"];
-                                NSLog(@"distination latitude  %@",Latitude);
-                                
-                                Longitude = [myArray objectForKey:@"longitude"];
-                                NSLog(@"distination longitude  %@",Longitude);
-                                
-                                
-                                locationManager = [[CLLocationManager alloc] init];
-                                locationManager.delegate = self;
-                                locationManager.distanceFilter = kCLDistanceFilterNone;
-                                locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-                                
-                                if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
-                                    [self->locationManager requestWhenInUseAuthorization];
-                                
-                                [locationManager startUpdatingLocation];
-                                
-                                
-                                
-                                
-                                // [self bookMatkstates];
-                                
-                                NSString * myBookMark = [myArray objectForKey:@"bookmarked"];
-                                
-                                NSLog(@"bookmark %@",myBookMark);
-                                
-                                int valuebook = [myBookMark intValue];
-                                
-                                if (valuebook == 0) {
-                                    
-                                    [homeBtn setSelected:NO];
-                                    
-                                }else {
-                                    
-                                    [homeBtn setSelected:YES];
-                                    
-                                }
-                                
-                                NSString *myLiked = [myArray objectForKey:@"liked"];
-                                
-                                NSLog(@"bookmark %@",myLiked);
-                                
-                                int valueLiked = [myLiked intValue];
-                                
-                                if (valueLiked == 0) {
-                                    
-                                    [settingsBtn setSelected:NO];
                                     
                                     
-                                }else {
+                                    NSString *imageUrl = [myArray objectForKey:@"image"];
                                     
-                                    [settingsBtn setSelected:YES];
+                                    NSURLRequest *imageRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:imageUrl]
+                                                                                  cachePolicy:NSURLRequestReturnCacheDataElseLoad
+                                                                              timeoutInterval:60];
                                     
-                                }
-                                shareUrl = [myArray objectForKey:@"share_link"];
-                                NSLog(@"ShareLink === %@",shareUrl);
-                                
-                                [activityIndicatorView stopAnimating];
-                                
-                                
-                            });
+                                    [_DetailImage setImageWithURLRequest:imageRequest
+                                                        placeholderImage:[UIImage imageNamed:@"placeholder"]
+                                                                 success:nil
+                                                                 failure:nil];
+                                    
+                                    
+                                    // Dates
+                                    
+                                    
+                                    NSString *title = [myArray objectForKey:@"title"];
+                                    
+                                    NSString *date = [myArray objectForKey:@"start_date"];
+                                    //  NSString *enddate = [myArray objectForKey:@"updated_at"];
+                                    
+                                    NSLog(@"Date====%@",date);
+                                    
+                                    
+                                    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc]init];
+                                    
+                                    NSString *currentDateString = date;
+                                    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                                    NSDate *currentDate = [dateFormatter dateFromString:currentDateString];
+                                    NSLog(@"CurrentDate:%@", currentDate);
+                                    NSDateFormatter *currentDTFormatter = [[NSDateFormatter alloc] init];
+                                    [currentDTFormatter setDateFormat:@"dd"];
+                                    
+                                    NSString *eventDateStr = [currentDTFormatter stringFromDate:currentDate];
+                                    NSLog(@"Date===%@", eventDateStr);
+                                    [currentDTFormatter setDateFormat:@"MMM"];
+                                    NSString *eventDateStr1 = [currentDTFormatter stringFromDate:currentDate];
+                                    NSLog(@"month===%@", eventDateStr1);
+                                    
+                                    //   NSString *time = [myArray objectForKey:@"updated_at"];
+                                    
+                                    NSString *ageGroup = [myArray objectForKey:@"age_group"];
+                                    
+                                    NSLog(@"myAge ===%@",ageGroup);
+                                    
+                                    NSString *notAva = [myArray objectForKey:@"cost"];
+                                    NSString *PriceOfEvent = [myArray objectForKey:@"cost"];
+                                    if ([notAva isEqualToString:@"Not Available"]) {
+                                        
+                                        PriceOfEvent = @"0";
+                                        
+                                    }else {
+                                        
+                                        PriceOfEvent = [myArray objectForKey:@"cost"];
+                                        
+                                    }
+                                    
+                                    _bodderAgeGroups.layer.cornerRadius = 8;
+                                    _bodderAgeGroups.layer.borderWidth = 1;
+                                    _bodderAgeGroups.layer.borderColor = [UIColor blackColor].CGColor;
+                                    
+                                    _bodderLeabelFordate.layer.cornerRadius = 8;
+                                    _bodderLeabelFordate.layer.borderWidth = 1;
+                                    _bodderLeabelFordate.layer.borderColor = [UIColor blackColor].CGColor;
+                                    
+                                    _bodderOnWords.layer.cornerRadius = 8;
+                                    _bodderOnWords.layer.borderWidth = 1;
+                                    _bodderOnWords.layer.borderColor = [UIColor blackColor].CGColor;
+                                    
+                                    _bodderPriceLabel.layer.cornerRadius = 8;
+                                    _bodderPriceLabel.layer.borderWidth = 1;
+                                    _bodderPriceLabel.layer.borderColor = [UIColor blackColor].CGColor;
+                                    
+                                    
+                                    
+                                    _titleTextLabel.lineBreakMode = NSLineBreakByWordWrapping;
+                                    _titleTextLabel.numberOfLines = 0;
+                                    _titleTextLabel.text = title;
+                                    
+                                    
+                                    _dateLeabel.text = eventDateStr;
+                                    _monthInWOrdsLeabel.text = eventDateStr1;
+                                    // cell2.timeLeabel.text = time;
+                                    
+                                    _ageGroups.text = ageGroup;
+                                    _priceOfEventLeabel.text = [NSString stringWithFormat:@"Rs. %@",PriceOfEvent];
+                                    _ageLeablelNew.text = ageGroup;
+                                    
+                                    
+                                    
+                                    // Dates cell
+                                    
+                                    NSString *dateStart = [myArray objectForKey:@"start_date"];
+                                    NSString *dateOfend = [myArray objectForKey:@"end_date"];
+                                    
+                                    // NSString *timeOfevents = [myArray objectForKey:@"cost"];
+                                    
+                                    NSLog(@"dateStart====%@",dateStart);
+                                    NSLog(@"dateEnd====%@",dateOfend);
+                                    
+                                    NSDateFormatter *dateFormatter1=[[NSDateFormatter alloc]init];
+                                    
+                                    NSString *currentDateString1 = dateStart;
+                                    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                                    NSDate *currentDate1 = [dateFormatter dateFromString:currentDateString1];
+                                    NSLog(@"CurrentDate:%@", currentDate1);
+                                    NSDateFormatter *currentDTFormatter2 = [[NSDateFormatter alloc] init];
+                                    [currentDTFormatter2 setDateFormat:@"dd"];
+                                    NSString *eventDateStr2 = [currentDTFormatter2 stringFromDate:currentDate];
+                                    NSLog(@"Date===%@", eventDateStr2);
+                                    
+                                    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+                                    NSDate *yourDate2 = [dateFormatter dateFromString:currentDateString];
+                                    dateFormatter.dateFormat = @"HH:mm";
+                                    NSLog(@"ooooooo     ====%@",[dateFormatter stringFromDate:yourDate2]);
+                                    NSString *startingTime = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:yourDate2]];
+                                    
+                                    NSString *myString1 = dateOfend;
+                                    
+                                    NSLog(@"value ==== %@",myString1);
+                                    
+                                    
+                                    NSDateFormatter* dateFormatter2 = [[NSDateFormatter alloc] init];
+                                    dateFormatter2.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+                                    NSDate *yourDate = [dateFormatter2 dateFromString:myString1];
+                                    dateFormatter2.dateFormat = @"dd-MMM-yyyy";
+                                    
+                                    NSString *endibgDate = [dateFormatter2 stringFromDate:yourDate];
+                                    NSLog(@"%@",[dateFormatter2 stringFromDate:yourDate]);
+                                    
+                                    dateFormatter1.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+                                    NSDate *yourDate1 = [dateFormatter1 dateFromString:myString1];
+                                    dateFormatter.dateFormat = @"HH:mm";
+                                    
+                                    NSLog(@"hdshjshdj     ====%@",[dateFormatter stringFromDate:yourDate1]);
+                                    
+                                    NSString *endingTime = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:yourDate1]];
+                                    
+                                    
+                                    
+                                    
+                                    NSLog(@"gjshgdjg ==    %@-%@",eventDateStr,endibgDate);
+                                    
+                                    
+                                    NSString *finalDate = [NSString stringWithFormat:@"%@ - %@",eventDateStr,endibgDate];
+                                    
+                                    _dateOfEvents.text = finalDate;
+                                    
+                                    _timeOfEvents.text = [NSString stringWithFormat:@"%@ - %@",startingTime,endingTime];
+                                    
+                                    
+                                    _timeLeabel.text = [NSString stringWithFormat:@"%@",startingTime];
+                                    NSString *Price = [myArray objectForKey:@"cost"];
+                                    _priceOfEventsWIthDate.text = [NSString stringWithFormat:@"Rs.%@",Price];
+                                    
+                                    
+                                    NSLog(@"%@",Price);
+                                    
+                                    
+                                    // Phone NO clicked
+                                    
+                                    UITapGestureRecognizer* gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(userTappedOnLink:)];
+                                    // if labelView is not set userInteractionEnabled, you must do so
+                                    [_phoneNotextField setUserInteractionEnabled:YES];
+                                    [_phoneNotextField addGestureRecognizer:gesture];
+                                    
+                                    _phoneNotextField.text = [myArray objectForKey:@"contact2"];
+                                    
+                                    _phoneNotextField.textColor = [UIColor blueColor];
+                                    
+                                    if ([[myArray objectForKey:@"contact2"] isEqualToString:@""]) {
+                                        
+                                        _phoneNotextField.text = @"Not Mentioned.";
+                                        
+                                    }
+                                    
+                                    // About
+                                    
+                                    
+                                    NSString *abouttext = [myArray objectForKey:@"article_content"];
+                                    
+                                    
+                                    NSString *newString;
+                                    
+                                    newString =  [abouttext stringByReplacingOccurrencesOfString: @"<br/>" withString:@""];
+                                    NSLog(@"newString === %@",newString);
+                                    
+                                    // NSString *htmlString = abouttext;
+                                    
+                                    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[newString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+                                    _textView.attributedText = attributedString;
+                                    
+                                    
+                                    if (IS_IPAD)
+                                    {
+                                        _textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20.0f];
+                                        _textView.textContainerInset = UIEdgeInsetsMake(0, 40, 0, 40);
+                                        
+                                    } else {
+                                        
+                                        _textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.0f];
+                                        _textView.textContainerInset = UIEdgeInsetsMake(0, 20, 0, 20);
+                                        
+                                    }
+                                    
+                                    _textView.editable = NO;
+                                    
+                                    //MapView
+                                    
+                                    venuDetails = [myArray objectForKey:@"venue"];
+                                    
+                                    _venuOrLocation.text = venuDetails;
+                                    
+                                    
+                                    Latitude = [myArray objectForKey:@"latitude"];
+                                    NSLog(@"distination latitude  %@",Latitude);
+                                    
+                                    Longitude = [myArray objectForKey:@"longitude"];
+                                    NSLog(@"distination longitude  %@",Longitude);
+                                    
+                                    
+                                    locationManager = [[CLLocationManager alloc] init];
+                                    locationManager.delegate = self;
+                                    locationManager.distanceFilter = kCLDistanceFilterNone;
+                                    locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+                                    
+                                    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+                                        [self->locationManager requestWhenInUseAuthorization];
+                                    
+                                    [locationManager startUpdatingLocation];
+                                    
+                                    
+                                    
+                                    
+                                    // [self bookMatkstates];
+                                    
+                                    NSString * myBookMark = [myArray objectForKey:@"bookmarked"];
+                                    
+                                    NSLog(@"bookmark %@",myBookMark);
+                                    
+                                    int valuebook = [myBookMark intValue];
+                                    
+                                    if (valuebook == 0) {
+                                        
+                                        [homeBtn setSelected:NO];
+                                        
+                                    }else {
+                                        
+                                        [homeBtn setSelected:YES];
+                                        
+                                    }
+                                    
+                                    NSString *myLiked = [myArray objectForKey:@"liked"];
+                                    
+                                    NSLog(@"bookmark %@",myLiked);
+                                    
+                                    int valueLiked = [myLiked intValue];
+                                    
+                                    if (valueLiked == 0) {
+                                        
+                                        [settingsBtn setSelected:NO];
+                                        
+                                        
+                                    }else {
+                                        
+                                        [settingsBtn setSelected:YES];
+                                        
+                                    }
+                                    shareUrl = [myArray objectForKey:@"share_link"];
+                                    NSLog(@"ShareLink === %@",shareUrl);
+                                    
+                                    [activityIndicatorView stopAnimating];
+                                    
+                                    
+                                });
              }
              
          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -1102,7 +1102,6 @@
 -(void)setTabBarItemImages
 
 {
-    
     UIImage *unselectedImage = [UIImage imageNamed:@"fb_icon"];
     
     UIImage *selectedImage = [UIImage imageNamed:@"fb_icon"];
@@ -1114,46 +1113,33 @@
     selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     
+    // Sample
     
-    [[self.myTabBar.items objectAtIndex:0] setFinishedSelectedImage:selectedImage withFinishedUnselectedImage:unselectedImage];
+    [[self.myTabBar.items objectAtIndex:0] setImage:unselectedImage];
     
     [[self.myTabBar.items objectAtIndex:0] setImageInsets:UIEdgeInsetsMake(5, 0, -5, 0)];
-    
-    
-    
     
     unselectedImage = [UIImage imageNamed:@"twitter_icon"];
     
     selectedImage = [UIImage imageNamed:@"twitter_icon"];
     
-    
-    
     unselectedImage = [unselectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    
-    
-    [[self.myTabBar.items objectAtIndex:1] setFinishedSelectedImage:selectedImage withFinishedUnselectedImage:unselectedImage];
+    [[self.myTabBar.items objectAtIndex:1] setImage:unselectedImage];
     
     [[self.myTabBar.items objectAtIndex:1] setImageInsets:UIEdgeInsetsMake(5, 0, -5, 0)];
-    
-    
-    
     
     unselectedImage = [UIImage imageNamed:@"whatsapp_icon"];
     
     selectedImage = [UIImage imageNamed:@"whatsapp_icon"];
     
-    
-    
     unselectedImage = [unselectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
-    
-    
-    [[self.myTabBar.items objectAtIndex:2] setFinishedSelectedImage:selectedImage withFinishedUnselectedImage:unselectedImage];
+    [[self.myTabBar.items objectAtIndex:2] setImage:unselectedImage];
     
     [[self.myTabBar.items objectAtIndex:2] setImageInsets:UIEdgeInsetsMake(5, 0, -5, 0)];
     
