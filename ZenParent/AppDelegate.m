@@ -120,11 +120,11 @@
     
  
 
-    
+      //pushNotification
     
     [self connected];
     
-    //pushNotification
+  
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
     {
